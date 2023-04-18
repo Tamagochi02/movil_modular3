@@ -10,49 +10,60 @@ class RegisterUserPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+      elevation: 0,
+      shadowColor:const Color.fromARGB(255, 51, 51, 51), 
+      backgroundColor: const Color.fromARGB(255, 51, 51, 51), 
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, LoginPage.route, (route) => false);
+              },
+              icon: const Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              ))),
       backgroundColor: const Color.fromARGB(255, 51, 51, 51),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 40),
         child: ListView(
           children: [
-            Row(
-              children: [
-                IconButton(
-                    onPressed: () {
-                      Navigator.pushNamedAndRemoveUntil(
-                          context, LoginPage.route, (route) => false);
-                    },
-                    icon: const Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
-                    ))
-              ],
-            ),
             Padding(
               padding:
-                  const EdgeInsets.symmetric(vertical: 240, horizontal: 30),
+                  const EdgeInsets.all(0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  const Text("Selecciona tu rol:", style: TextStyle(color: Colors.white, fontSize: 20.0)),
+                  const SizedBox(height: 45),
                   SizedBox(
                     width: 300,
-                    height: 50,
+                    height: 150,
                     child: ElevatedButton(
                         onPressed: () {
                           Navigator.pushNamed(
                               context, RegisterStudentPage.route);
                         },
                         style: ElevatedButton.styleFrom(
-                          primary: const Color.fromARGB(255, 68, 117, 223),
+                          backgroundColor: const Color.fromARGB(255, 68, 117, 223),
                         ),
-                        child: const Text("Alumno")),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: const [
+                              Icon(Icons.backpack_rounded, size: 95),
+                              Text("Alumno"),
+                            ],
+                          ),
+                        )),
                   ),
                   //
                   const SizedBox(height: 45),
                   //
                   SizedBox(
                     width: 300,
-                    height: 50,
+                    height: 150,
                     child: ElevatedButton(
                         onPressed: () {
                           Navigator.pushNamed(
@@ -61,7 +72,16 @@ class RegisterUserPage extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           primary: const Color.fromARGB(255, 170, 96, 219),
                         ),
-                        child: const Text("Docente")),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: const [
+                              Icon(Icons.book_rounded, size: 95),
+                              Text("Docente"),
+                            ],
+                          ),
+                        )),
                   )
                 ],
               ),
