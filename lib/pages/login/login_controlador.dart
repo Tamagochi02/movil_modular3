@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:movil_modular3/models/sesion.dart';
+import 'package:movil_modular3/modelos/sesion.dart';
 
 class LoginController {
-  Future<bool> loginStudent(String email, String pswd) async {
+  Future<bool> login(String email, String pswd) async {
     final response = await http.post(
-      Uri.parse('https://modular2.vercel.app/api/login'),
+      Uri.parse('http://localhost:3000/api/login'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({'correo': email, 'contrasena': pswd}),
     );
@@ -16,7 +16,6 @@ class LoginController {
     final pivote =
         cookie.indexOf(";"); // Busca dentro de la cookie el caracter ";"
     Session().cookie = pivote == -1 ? cookie : cookie.substring(0, pivote);
-    // logoutStudent();
     return true;
   }
 
