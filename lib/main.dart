@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         DocUpdate1and2Page.route: (context) => const DocUpdate1and2Page()
       },
       initialRoute:
-          HomePage.route, // Ruta que se mostrará al inicio de la ejecución
+          LoginPage.route, // Ruta que se mostrará al inicio de la ejecución
     );
   }
 }
