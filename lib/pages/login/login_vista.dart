@@ -10,8 +10,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final loginCorreoController = TextEditingController();
-  final loginPassController = TextEditingController();
+  final textCorreoController = TextEditingController();
+  final textPassController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,50 +26,67 @@ class _LoginPageState extends State<LoginPage> {
                   color: Colors.white,
                   fontSize: 25,
                 )),
-            //
             const SizedBox(height: 100),
-            //
             TextField(
-              controller: loginCorreoController,
+              controller: textCorreoController,
               decoration: const InputDecoration(
                 contentPadding: EdgeInsets.symmetric(horizontal: 10),
                 label: Text(
-                  "Correo institucional:",
+                  "Correo institucional",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 19,
                   ),
                 ),
+                suffixIcon: Icon(Icons.mail_outline, color: Colors.white),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                border: OutlineInputBorder(),
               ),
               style: const TextStyle(color: Colors.white),
             ),
-            //
             const SizedBox(height: 45),
-            //
             TextField(
-              controller: loginPassController,
+              enableInteractiveSelection: false,
+              obscureText: true,
+              controller: textPassController,
               decoration: const InputDecoration(
                 label: Text(
-                  "Contraseña:",
+                  "Contraseña",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 19,
                   ),
                 ),
+                suffixIcon: Icon(Icons.lock_outline, color: Colors.white),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                border: OutlineInputBorder(),
                 contentPadding: EdgeInsets.symmetric(horizontal: 10),
               ),
               style: const TextStyle(color: Colors.white),
             ),
-            //
             const SizedBox(height: 45),
-            //
             SizedBox(
-              width: 120,
-              height: 30,
+              width: 240,
+              height: 50,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  // ignore: constant_identifier_names
+                  const snackBar_camposVacios = SnackBar(
+                    content: Text('Debes llenar todos los campos'),
+                    backgroundColor: Colors.red,
+                  );
+                  if (textCorreoController.text.isEmpty ||
+                      textPassController.text.isEmpty) {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(snackBar_camposVacios);
+                  }
+                },
                 style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
+                    backgroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0))),
                 child: const Text("Ingresar",
@@ -79,37 +96,29 @@ class _LoginPageState extends State<LoginPage> {
                     )),
               ),
             ),
-
-            //
-            SizedBox(height: 45),
-            //
-            const Divider(
-              color: Colors.white,
-            ),
-            //
-            const SizedBox(height: 45),
-            //
-            SizedBox(
-              width: 170,
-              height: 30,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, RegisterUserPage.route, (route) => false);
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
+            const SizedBox(height: 25),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("¿Eres nuevo?",
+                    style: TextStyle(color: Colors.white, fontSize: 14)),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, RegisterUserPage.route, (route) => false);
+                  },
+                  style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.all(5),
+                      shadowColor: Colors.transparent,
+                      backgroundColor: const Color.fromARGB(255, 51, 51, 51)),
+                  child: const Text("Crea una cuenta",
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontSize: 14,
+                      )),
                 ),
-                child: const Text("Crear una cuenta",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                    )),
-              ),
-            ),
+              ],
+            )
           ],
         ),
       ),
