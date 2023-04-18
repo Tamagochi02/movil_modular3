@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movil_modular3/pages/alumno/home.dart';
+import 'package:movil_modular3/pages/login/login_controlador.dart';
 import 'package:movil_modular3/pages/registrar/registrarUsuario.dart';
 
 class LoginPage extends StatefulWidget {
@@ -10,6 +12,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final controller = LoginController();
   final textCorreoController = TextEditingController();
   final textPassController = TextEditingController();
   @override
@@ -79,10 +82,27 @@ class _LoginPageState extends State<LoginPage> {
                     content: Text('Debes llenar todos los campos'),
                     backgroundColor: Colors.red,
                   );
+                  const snackBar_usuarioNoEncontrado = SnackBar(
+                    content: Text('No se encontró el usuario'),
+                    backgroundColor: Colors.red,
+                  );
                   if (textCorreoController.text.isEmpty ||
                       textPassController.text.isEmpty) {
                     ScaffoldMessenger.of(context)
                         .showSnackBar(snackBar_camposVacios);
+                  } else {
+                    controller
+                        .login(
+                            textCorreoController.text, textPassController.text)
+                        .then((value) {
+                      if (value) {
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, HomePage.route, (route) => false);
+                      } else {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(snackBar_usuarioNoEncontrado);
+                      }
+                    });
                   }
                 },
                 style: ElevatedButton.styleFrom(
