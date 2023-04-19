@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:movil_modular3/modelos/sesion.dart';
+import 'package:movil_modular3/utils/config.dart';
 
 class LoginController {
   Future<bool> login(String correo, String contrasena) async {
     final response = await http.post(
-      Uri.parse('http://localhost:3000/api/login'),
+      Uri.parse('${Config.ipServerApiUrl}/login'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({'correo': correo, 'contrasena': contrasena}),
     );
@@ -19,11 +20,11 @@ class LoginController {
     return true;
   }
 
-/*   logoutStudent() async {
+  logout() async {
     final response = await http.get(
-      Uri.parse('https://modular2.vercel.app/api/logout'),
+      Uri.parse('${Config.ipServerApiUrl}/logout'),
       headers: {'Content-Type': 'application/json', 'cookie': Session().cookie},
     );
     print(response.statusCode);
-  } */
+  }
 }
