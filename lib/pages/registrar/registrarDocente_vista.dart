@@ -105,7 +105,7 @@ class _RegisterTeacherPageState extends State<RegisterTeacherPage> {
             ),
           ),
           //
-          const SizedBox(height: 180),
+          const SizedBox(height: 170),
           //
           SizedBox(
             height: 50,
