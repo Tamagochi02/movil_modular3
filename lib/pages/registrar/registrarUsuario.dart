@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movil_modular3/pages/login/login_vista.dart';
-import 'package:movil_modular3/pages/registrar/registrarAlumno.dart';
-import 'package:movil_modular3/pages/registrar/registrarDocente.dart';
+import 'package:movil_modular3/pages/registrar/registrarAlumno_vista.dart';
+import 'package:movil_modular3/pages/registrar/registrarDocente_vista.dart';
 
 class RegisterUserPage extends StatelessWidget {
   static const String route = "/registeruser";
@@ -41,8 +41,8 @@ class RegisterUserPage extends StatelessWidget {
                     height: 150,
                     child: ElevatedButton(
                         onPressed: () {
-                          Navigator.pushNamed(
-                              context, RegisterStudentPage.route);
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, RegisterStudentPage.route, (route) => false,);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color.fromARGB(255, 68, 117, 223),
@@ -66,8 +66,8 @@ class RegisterUserPage extends StatelessWidget {
                     height: 150,
                     child: ElevatedButton(
                         onPressed: () {
-                          Navigator.pushNamed(
-                              context, RegisterTeacherPage.route);
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, RegisterTeacherPage.route, (route) => false,);
                         },
                         style: ElevatedButton.styleFrom(
                           primary: const Color.fromARGB(255, 170, 96, 219),
