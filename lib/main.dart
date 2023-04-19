@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movil_modular3/pages/login/login_vista.dart';
-import 'package:movil_modular3/pages/registrar/registrarAlumno.dart';
-import 'package:movil_modular3/pages/registrar/registrarDocente.dart';
+import 'package:movil_modular3/pages/registrar/registrarAlumno_vista.dart';
+import 'package:movil_modular3/pages/registrar/registrarDocente_vista.dart';
 import 'package:movil_modular3/pages/registrar/registrarUsuario.dart';
 import 'package:movil_modular3/pages/alumno/docRegister.dart';
 import 'package:movil_modular3/pages/alumno/docUpdateEtapa1y2.dart';
