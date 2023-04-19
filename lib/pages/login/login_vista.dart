@@ -94,20 +94,20 @@ class _LoginPageState extends State<LoginPage> {
                       textContrasenaController.text.isEmpty) {
                     ScaffoldMessenger.of(context)
                         .showSnackBar(snackBar_camposVacios);
-                  } else {
-                    controller
-                        .login(
-                            textCorreoController.text.trim(), textContrasenaController.text.trim())
-                        .then((value) {
-                      if (value) {
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, HomePage.route, (route) => false);
-                      } else {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(snackBar_usuarioNoEncontrado);
-                      }
-                    });
+                    return;
                   }
+                  controller
+                      .login(textCorreoController.text.trim(),
+                          textContrasenaController.text.trim())
+                      .then((value) {
+                    if (value) {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, HomePage.route, (route) => false);
+                    } else {
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(snackBar_usuarioNoEncontrado);
+                    }
+                  });
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
