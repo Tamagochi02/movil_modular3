@@ -14,7 +14,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final controller = LoginController();
   final textCorreoController = TextEditingController();
-  final textPassController = TextEditingController();
+  final textContrasenaController = TextEditingController();
+  bool _isObscure = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +32,7 @@ class _LoginPageState extends State<LoginPage> {
                 )),
             const SizedBox(height: 100),
             TextField(
+              textCapitalization: TextCapitalization.sentences,
               controller: textCorreoController,
               decoration: const InputDecoration(
                 contentPadding: EdgeInsets.symmetric(horizontal: 10),
@@ -53,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
             TextField(
               enableInteractiveSelection: false,
               obscureText: true,
-              controller: textPassController,
+              controller: textContrasenaController,
               decoration: const InputDecoration(
                 label: Text(
                   "Contraseña",
@@ -81,19 +83,21 @@ class _LoginPageState extends State<LoginPage> {
                   const snackBar_camposVacios = SnackBar(
                     content: Text('Debes llenar todos los campos'),
                     backgroundColor: Colors.red,
+                    duration: Duration(seconds: 1),
                   );
                   const snackBar_usuarioNoEncontrado = SnackBar(
                     content: Text('No se encontró el usuario'),
                     backgroundColor: Colors.red,
+                    duration: Duration(seconds: 1),
                   );
                   if (textCorreoController.text.isEmpty ||
-                      textPassController.text.isEmpty) {
+                      textContrasenaController.text.isEmpty) {
                     ScaffoldMessenger.of(context)
                         .showSnackBar(snackBar_camposVacios);
                   } else {
                     controller
                         .login(
-                            textCorreoController.text, textPassController.text)
+                            textCorreoController.text.trim(), textContrasenaController.text.trim())
                         .then((value) {
                       if (value) {
                         Navigator.pushNamedAndRemoveUntil(
