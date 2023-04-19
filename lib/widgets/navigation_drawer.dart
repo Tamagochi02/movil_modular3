@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:movil_modular3/pages/login/login_controlador.dart';
 import 'package:movil_modular3/pages/login/login_vista.dart';
 import 'package:movil_modular3/pages/alumno/home.dart';
 
 class NavigationDrawer extends StatelessWidget {
-  //final controller = LoginController();
   const NavigationDrawer({Key? key}) : super(key: key);
-
+  
   @override
   Widget build(BuildContext context) {
+    final controller = LoginController();
     return Drawer(
         child: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 23, vertical: 25),
@@ -99,7 +100,7 @@ class NavigationDrawer extends StatelessWidget {
           //
           TextButton(
               onPressed: () {
-                //controller.logoutStudent();
+                controller.logout();
                 Navigator.pushNamedAndRemoveUntil(
                     context, LoginPage.route, (route) => false);
               },
