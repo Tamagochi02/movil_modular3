@@ -1,3 +1,3 @@
 class Config {
-  static String ipServerApiUrl = 'http://localhost:3000/api';
+  static String ipServerApiUrl = 'https://web-haifisch3-tamagochi02.vercel.app/api';
 }
