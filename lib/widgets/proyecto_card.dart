@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:movil_modular3/modelos/routeParamsModularProjectPage.dart';
 import 'package:movil_modular3/pages/alumno/documents.dart';
 
-class ModuleCard extends StatelessWidget {
-  final String title;
-  final int numDocs;
-  const ModuleCard({
+class ProjectCard extends StatelessWidget {
+  final String nombreProyecto;
+  final String modulo;
+  final String estado;
+  final String evaluacion;
+  const ProjectCard({
     Key? key,
-    this.title = "",
-    this.numDocs = 0,
+    this.nombreProyecto = "",
+    this.modulo = "",
+    this.estado = "",
+    this.evaluacion = "",
   }) : super(key: key);
 
   @override
@@ -28,23 +32,35 @@ class ModuleCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    nombreProyecto,
                     style: const TextStyle(
                       color: Color.fromARGB(255, 255, 255, 255),
-                      fontSize: 20.0,
+                      fontSize: 25.0,
                     ),
                   ),
                   Text(
-                    "${numDocs}/3 documentos registrados",
+                    modulo,
                     style: const TextStyle(
                       color: Color.fromARGB(255, 255, 255, 255),
                     ),
-                  )
+                  ),
+                  Text(
+                    estado,
+                    style: const TextStyle(
+                      color: Color.fromARGB(255, 255, 255, 255),
+                    ),
+                  ),
+                  Text(
+                    evaluacion,
+                    style: const TextStyle(
+                      color: Color.fromARGB(255, 255, 255, 255),
+                    ),
+                  ),
                 ],
               )),
         ),
         onTap: () {
-          RouteParamsModularProjectPage.assign(title, '');
+          RouteParamsModularProjectPage.assign(nombreProyecto, '');
           Navigator.pushNamedAndRemoveUntil(
               context, DocumentsPage.route, (route) => false);
         });
