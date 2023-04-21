@@ -12,7 +12,7 @@ class RegisterStudentPage extends StatefulWidget {
 }
 
 class _RegisterStudentPageState extends State<RegisterStudentPage> {
-  final controller = registerController();
+  final controller = RegisterController();
   final textMatriculaController = TextEditingController();
   final textCorreoController = TextEditingController();
   final textNombreController = TextEditingController();
