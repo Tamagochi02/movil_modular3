@@ -1,4 +1,4 @@
-class Usuario {
+class User {
   String? id;
   String? nombre;
   String? correo;
@@ -9,7 +9,7 @@ class Usuario {
   String? actualizadoEn;
   Matricula? matricula;
 
-  Usuario(
+  User(
       {this.id,
       this.nombre,
       this.correo,
@@ -20,7 +20,7 @@ class Usuario {
       this.actualizadoEn,
       this.matricula});
 
-  Usuario.fromJson(Map<String, dynamic> json) {
+  User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     nombre = json['nombre'];
     correo = json['correo'];
