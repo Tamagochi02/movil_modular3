@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movil_modular3/pages/alumno/proyecto/crearProyecto_vista.dart';
 import 'package:movil_modular3/pages/login/login_vista.dart';
 import 'package:movil_modular3/pages/registrar/registrarAlumno_vista.dart';
 import 'package:movil_modular3/pages/registrar/registrarDocente_vista.dart';
@@ -29,7 +30,8 @@ class MyApp extends StatelessWidget {
         DocumentsPage.route: (context) => const DocumentsPage(),
         DocRegisterPage.route: (context) => const DocRegisterPage(),
         DocUpdate3Page.route: (context) => const DocUpdate3Page(),
-        DocUpdate1and2Page.route: (context) => const DocUpdate1and2Page()
+        DocUpdate1and2Page.route: (context) => const DocUpdate1and2Page(),
+        CreateProjectPage.route : (context) => const CreateProjectPage()
       },
       initialRoute:
           LoginPage.route, // Ruta que se mostrará al inicio de la ejecución
