@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:movil_modular3/utils/config.dart';
 
-class registerController {
+class RegisterController {
   Future<bool> registrarAlumno(
       String nombre, String correo, String contrasena, String matricula) async {
     final response =
