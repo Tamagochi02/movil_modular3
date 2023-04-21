@@ -16,6 +16,7 @@ class LoginController {
     if (cookie == null) return false; // Si no encuentra cookie retorna false
     final pivote =
         cookie.indexOf(";"); // Busca dentro de la cookie el caracter ";"
+    Session().userId = jsonDecode(response.body)['id']; // Guarda el ID del usuario en Session
     Session().cookie = pivote == -1 ? cookie : cookie.substring(0, pivote);
     return true;
   }
