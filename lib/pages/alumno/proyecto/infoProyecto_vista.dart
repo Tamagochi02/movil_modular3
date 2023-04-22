@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class InfoProjectPage extends StatefulWidget {
-/*   static const String route = "/infoProject"; */
+  static const String route = "/infoProject";
   const InfoProjectPage({super.key});
 
   @override
@@ -30,23 +30,23 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 25),
         child: ListView(children: const [
           TextField(
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                label: Text(
-                  "Correo institucional",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 19,
-                  ),
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.symmetric(horizontal: 10),
+              label: Text(
+                "Correo institucional",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 19,
                 ),
-                suffixIcon: Icon(Icons.mail_outline, color: Colors.white),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                ),
-                border: OutlineInputBorder(),
               ),
-              style: const TextStyle(color: Colors.white),
+              suffixIcon: Icon(Icons.mail_outline, color: Colors.white),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.white),
+              ),
+              border: OutlineInputBorder(),
             ),
+            style: const TextStyle(color: Colors.white),
+          ),
         ]),
       ),
     );

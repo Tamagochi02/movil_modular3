@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         RegisterUserPage.route: (context) => const RegisterUserPage(),
         HomePage.route: (context) => const HomePage(),
         CreateProjectPage.route : (context) => const CreateProjectPage(),
-        '/infoProject' :(context) => const InfoProjectPage()
+        InfoProjectPage.route :(context) => const InfoProjectPage()
       },
       initialRoute:
           LoginPage.route, // Ruta que se mostrará al inicio de la ejecución

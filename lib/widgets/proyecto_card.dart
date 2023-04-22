@@ -18,7 +18,7 @@ class ProjectCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          Navigator.pushNamed(context, '/infoProject');
+          Navigator.pushNamed(context, InfoProjectPage.route);
         },
         child: Container(
           decoration: BoxDecoration(
