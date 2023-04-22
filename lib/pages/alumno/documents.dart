@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movil_modular3/modelos/routeParamsModularProjectPage.dart';
-import 'package:movil_modular3/pages/alumno/docRegister.dart';
+import 'package:movil_modular3/pages/alumno/proyecto/infoProyecto_vista.dart';
 import 'package:movil_modular3/pages/alumno/docUpdateEtapa1y2.dart';
 import 'package:movil_modular3/pages/alumno/docUpdateEtapa3.dart';
 import 'package:movil_modular3/widgets/navigation_drawer.dart' as widgets;
@@ -207,11 +207,6 @@ class DocumentsPage extends StatelessWidget {
                       )),
                 ),
                 onTap: () {
-                  if (docName3 == "Ninguno") {
-                    Navigator.pushNamed(context, DocRegisterPage.route);
-                  } else {
-                    Navigator.pushNamed(context, DocUpdate3Page.route);
-                  }
                 },
               ),
             ],
