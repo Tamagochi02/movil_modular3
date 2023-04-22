@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movil_modular3/modelos/usuario.dart';
 import 'package:movil_modular3/pages/alumno/proyecto/proyecto_controlador.dart';
-import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 class CreateProjectPage extends StatefulWidget {
   static const String route = "/createproject";
@@ -181,6 +180,16 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
                   backgroundColor: Colors.red,
                   duration: Duration(seconds: 1),
                 );
+                const snackBar_registroExitoso = SnackBar(
+                  content: Text('Se ha registrado con éxito'),
+                  backgroundColor: Colors.green,
+                  duration: Duration(seconds: 1),
+                );
+                const snackBar_registroFallido = SnackBar(
+                  content: Text('Algo salió mal, no ha sido registrado'),
+                  backgroundColor: Colors.red,
+                  duration: Duration(seconds: 1),
+                );
 
                 if (textNombreController.text.isEmpty ||
                     textModuloController.text.isEmpty ||
@@ -189,9 +198,27 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
                   ScaffoldMessenger.of(context)
                       .showSnackBar(snackBar_camposVacios);
                 } else {
-                  print(correoAlumnosSeleccionados);
-                  /* controller.crearProyecto(textNombreController.text.trim(),
-                      textModuloController.text.trim(), correos); */
+                  List<String> correoUsuariosSeleccionados = [];
+                  correoUsuariosSeleccionados
+                      .addAll(correoAlumnosSeleccionados);
+                  correoUsuariosSeleccionados
+                      .addAll(correoDocentesSeleccionados);
+                  print(correoUsuariosSeleccionados);
+                  controller
+                      .crearProyecto(
+                          textNombreController.text.trim(),
+                          textModuloController.text.trim(),
+                          correoUsuariosSeleccionados)
+                      .then((value) {
+                    if (!value) {
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(snackBar_registroFallido);
+                    } else {
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(snackBar_registroExitoso);
+                      Navigator.pop(context);
+                    }
+                  });
                 }
               },
               style: ElevatedButton.styleFrom(
@@ -200,7 +227,7 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
                   borderRadius: BorderRadius.circular(30.0),
                 ),
               ),
-              child: const Text("Registrarme"),
+              child: const Text("Crear"),
             ),
           )
         ]),
