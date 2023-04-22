@@ -7,16 +7,15 @@ import 'package:movil_modular3/utils/config.dart';
 
 class ProjectController {
   Future<bool> crearProyecto(
-      String nombre, String modulo, String correos) async {
+      String nombre, String modulo, List<String> correos) async {
     final response = await http.post(
-      Uri.parse('${Config.ipServerApiUrl}/projects'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({
-              "nombre": nombre,
-              "modulo": modulo,
-              "correos": correos
-            })
-    );
+        Uri.parse('${Config.ipServerApiUrl}/projects'),
+        headers: {
+          'Content-Type': 'application/json',
+          "Cookie": Session().cookie
+        },
+        body: jsonEncode(
+            {"nombre": nombre, "modulo": modulo, "correos": correos}));
     print(">> El servidor respondió con un código: ${response.statusCode}");
     if (response.statusCode != 200) return false;
     return true;
@@ -31,8 +30,13 @@ class ProjectController {
     print(">> El servidor respondió con un código: ${response.statusCode}");
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
-      print(jsonResponse);
-      return jsonResponse;
+
+      var registros = <Project>[];
+
+      for (var datos in jsonResponse) {
+        registros.add(Project.fromJson(datos));
+      }
+      return registros;
     } else {
       throw Exception('Failed to load projects');
     }
@@ -61,7 +65,7 @@ class ProjectController {
     print(">> El servidor respondió con un código: ${response.statusCode}");
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
-      print(jsonResponse);
+
       var registros = <User>[];
 
       for (var datos in jsonResponse) {
