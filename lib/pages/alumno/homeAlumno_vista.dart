@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:movil_modular3/modelos/proyecto.dart';
 import 'package:movil_modular3/pages/alumno/proyecto/crearProyecto_vista.dart';
 import 'package:movil_modular3/pages/alumno/proyecto/proyecto_controlador.dart';
-import 'package:movil_modular3/widgets/proyecto_card.dart';
+import 'package:movil_modular3/widgets/proyectoAlumno_card.dart';
+import 'package:movil_modular3/widgets/navigation_drawer.dart' as widgets;
 
-class HomePage extends StatefulWidget {
-  static const String route = "/home";
-  const HomePage({Key? key}) : super(key: key);
+class StudentHomePage extends StatefulWidget {
+  static const String route = "/homeStudent";
+  const StudentHomePage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<StudentHomePage> createState() => _StudentHomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _StudentHomePageState extends State<StudentHomePage> {
   final controller = ProjectController();
   List<Project> proyectos = [];
 
@@ -30,23 +31,23 @@ class _HomePageState extends State<HomePage> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text("Proyectos"),
+          title: const Text("Proyectos", style: TextStyle(color: Colors.black)),
           centerTitle: true,
-          backgroundColor: const Color.fromARGB(255, 52, 105, 221),
-          leading: IconButton(
-              onPressed: () {}, icon: const Icon(Icons.notifications)),
+          backgroundColor: Colors.white,
         ),
-        //
+        backgroundColor: const Color.fromARGB(215, 255, 255, 255),
+        drawer: const widgets.NavigationDrawer(),
         body: Padding(
           padding: const EdgeInsets.all(17.0),
           child: ListView.builder(
             itemCount: proyectos.length,
             itemBuilder: (context, index) {
-              return ProjectCard(
+              return ProjectStudentCard(
                   nombreProyecto: proyectos[index].nombre,
                   modulo: proyectos[index].modulo,
                   estado: proyectos[index].estado,
-                  evaluacion: proyectos[index].evaluacion);
+                  evaluacion: proyectos[index].evaluacion,
+                  id: proyectos[index].id);
             },
           ),
         ),
