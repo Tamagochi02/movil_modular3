@@ -42,15 +42,18 @@ class ProjectController {
     }
   }
 
-  Future<Project> obtenerProyectosPorId(String id) async {
-    final response = await http.get(
-      Uri.parse('${Config.ipServerApiUrl}/projects'),
-      headers: {'Content-Type': 'application/json', "Cookie": Session().cookie},
-    );
+  Future<Project> obtenerProyectoPorId(String id) async {
+    final response = await http.post(
+        Uri.parse('${Config.ipServerApiUrl}/obtenerProyectoPorId'),
+        headers: {
+          'Content-Type': 'application/json',
+          "Cookie": Session().cookie
+        },
+        body: jsonEncode({"id": id}));
     print(">> El servidor respondió con un código: ${response.statusCode}");
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
-      return jsonResponse['proyectos'];
+      return Project.fromJson(jsonResponse);
     } else {
       throw Exception('Failed to load projects');
     }
