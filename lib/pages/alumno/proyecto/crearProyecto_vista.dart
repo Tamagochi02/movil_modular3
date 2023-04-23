@@ -58,7 +58,7 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
             textCapitalization: TextCapitalization.sentences,
             controller: textNombreController,
             decoration: const InputDecoration(
-              label: Text("Nombre del proyecto:"),
+              label: Text("Nombre del proyecto"),
               contentPadding: EdgeInsets.symmetric(horizontal: 10),
             ),
           ),
@@ -69,7 +69,7 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
             textCapitalization: TextCapitalization.sentences,
             controller: textModuloController,
             decoration: const InputDecoration(
-              label: Text("Módulo:"),
+              label: Text("Módulo"),
               contentPadding: EdgeInsets.symmetric(horizontal: 10),
             ),
           ),
@@ -87,7 +87,7 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(10),
               ),
               child: const Text("Integrantes del equipo"),
             ),
@@ -135,7 +135,7 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(10),
               ),
               child: const Text("Asesor"),
             ),
@@ -224,7 +224,7 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
               style: ElevatedButton.styleFrom(
                 primary: const Color.fromARGB(255, 51, 51, 51),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
+                  borderRadius: BorderRadius.circular(35.0),
                 ),
               ),
               child: const Text("Crear"),
