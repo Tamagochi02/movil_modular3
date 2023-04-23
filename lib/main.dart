@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:movil_modular3/pages/alumno/proyecto/crearProyecto_vista.dart';
 import 'package:movil_modular3/pages/alumno/proyecto/infoProyecto_vista.dart';
+import 'package:movil_modular3/pages/docente/homeDocente_vista.dart';
 import 'package:movil_modular3/pages/login/login_vista.dart';
 import 'package:movil_modular3/pages/registrar/registrarAlumno_vista.dart';
 import 'package:movil_modular3/pages/registrar/registrarDocente_vista.dart';
 import 'package:movil_modular3/pages/registrar/registrarUsuario.dart';
-import 'package:movil_modular3/pages/alumno/home.dart';
+import 'package:movil_modular3/pages/alumno/homeAlumno_vista.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +24,8 @@ class MyApp extends StatelessWidget {
         RegisterStudentPage.route: (context) => const RegisterStudentPage(),
         RegisterTeacherPage.route: (context) => const RegisterTeacherPage(),
         RegisterUserPage.route: (context) => const RegisterUserPage(),
-        HomePage.route: (context) => const HomePage(),
+        StudentHomePage.route: (context) => const StudentHomePage(),
+        TeacherHomePage.route:(context) => const TeacherHomePage(),
         CreateProjectPage.route : (context) => const CreateProjectPage(),
         InfoProjectPage.route :(context) => const InfoProjectPage()
       },
