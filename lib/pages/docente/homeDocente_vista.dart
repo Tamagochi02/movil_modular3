@@ -36,17 +36,21 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
         ),
         backgroundColor: const Color.fromARGB(215, 255, 255, 255),
         drawer: const widgets.NavigationDrawer(),
-        body: 
-        Padding(
+        body: Padding(
           padding: const EdgeInsets.all(15.0),
           child: ListView.builder(
             itemCount: proyectos.length,
             itemBuilder: (context, index) {
-              return ProjectTeacherCard(
-                  nombreProyecto: proyectos[index].nombre,
-                  modulo: proyectos[index].modulo,
-                  estado: proyectos[index].estado,
-                  evaluacion: proyectos[index].evaluacion);
+              return Column(
+                children: [
+                  ProjectTeacherCard(
+                      nombreProyecto: proyectos[index].nombre,
+                      modulo: proyectos[index].modulo,
+                      estado: proyectos[index].estado,
+                      evaluacion: proyectos[index].evaluacion),
+                  const SizedBox(height: 10)
+                ],
+              );
             },
           ),
         ),
