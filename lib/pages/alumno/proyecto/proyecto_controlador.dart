@@ -16,7 +16,7 @@ class ProjectController {
         },
         body: jsonEncode(
             {"nombre": nombre, "modulo": modulo, "correos": correos}));
-    print(">> El servidor respondió con un código: ${response.statusCode}");
+    print(">> [crearProyecto] El servidor respondió con un código: ${response.statusCode}");
     if (response.statusCode != 200) return false;
     return true;
   }
@@ -27,7 +27,7 @@ class ProjectController {
       'Content-Type': 'application/json',
       "Cookie": Session().cookie
     });
-    print(">> El servidor respondió con un código: ${response.statusCode}");
+    print(">> [obtenerProyectosPorUsuarioId] El servidor respondió con un código: ${response.statusCode}");
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
 
@@ -50,7 +50,7 @@ class ProjectController {
           "Cookie": Session().cookie
         },
         body: jsonEncode({"id": id}));
-    print(">> El servidor respondió con un código: ${response.statusCode}");
+    print(">> [obtenerProyectoPorId] El servidor respondió con un código: ${response.statusCode}");
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
       return Project.fromJson(jsonResponse);
@@ -65,7 +65,7 @@ class ProjectController {
       'Content-Type': 'application/json',
       "Cookie": Session().cookie
     });
-    print(">> El servidor respondió con un código: ${response.statusCode}");
+    print(">> [obtenerAlumnos] El servidor respondió con un código: ${response.statusCode}");
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
 
@@ -86,7 +86,7 @@ class ProjectController {
       'Content-Type': 'application/json',
       "Cookie": Session().cookie
     });
-    print(">> El servidor respondió con un código: ${response.statusCode}");
+    print(">> [obtenerDocentes] El servidor respondió con un código: ${response.statusCode}");
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
 
@@ -101,9 +101,3 @@ class ProjectController {
     }
   }
 }
-
-/* l()async {
-  final pc = ProjectController();
-final proyects = await pc.obtenerProyectosPorUsuarioId();
-final p = await pc.obtenerProyectosPorId(proyects.first.id);
-} */
