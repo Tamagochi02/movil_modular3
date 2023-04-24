@@ -31,6 +31,7 @@ class _StudentHomePageState extends State<StudentHomePage> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
+          iconTheme: const IconThemeData(color: Colors.black),
           title: const Text("Proyectos", style: TextStyle(color: Colors.black)),
           centerTitle: true,
           backgroundColor: Colors.white,
@@ -42,18 +43,24 @@ class _StudentHomePageState extends State<StudentHomePage> {
           child: ListView.builder(
             itemCount: proyectos.length,
             itemBuilder: (context, index) {
-              return ProjectStudentCard(
-                  nombreProyecto: proyectos[index].nombre,
-                  modulo: proyectos[index].modulo,
-                  estado: proyectos[index].estado,
-                  evaluacion: proyectos[index].evaluacion,
-                  id: proyectos[index].id);
+              return Column(
+                children: [
+                  ProjectStudentCard(
+                      nombreProyecto: proyectos[index].nombre,
+                      modulo: proyectos[index].modulo,
+                      estado: proyectos[index].estado,
+                      evaluacion: proyectos[index].evaluacion,
+                      id: proyectos[index].id),
+                  const SizedBox(height: 10)
+                ],
+              );
             },
           ),
         ),
         floatingActionButton: FloatingActionButton(
+          backgroundColor: const Color.fromARGB(255, 51, 51, 51),
           onPressed: () {
-            Navigator.pushNamed(context, CreateProjectPage.route);
+            Navigator.pushNamedAndRemoveUntil(context, CreateProjectPage.route, (route) => false);
           },
           child: const Icon(Icons.add),
         ),
