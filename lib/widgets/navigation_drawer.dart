@@ -34,9 +34,8 @@ class NavigationDrawer extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 40),
-              Text(Session().nombre, style: const TextStyle(
-                color: Colors.black
-              )),
+              Text(Session().nombre,
+                  style: const TextStyle(color: Colors.black)),
               //
               const SizedBox(height: 10),
               //
@@ -65,8 +64,7 @@ class NavigationDrawer extends StatelessWidget {
               //
               TextButton(
                   onPressed: () {
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, LoginPage.route, (route) => false);
+                    Navigator.pushNamedAndRemoveUntil(context, LoginPage.route, (route) => false);
                     controller.logout();
                   },
                   child: Row(
