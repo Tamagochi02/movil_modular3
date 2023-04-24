@@ -35,7 +35,7 @@ class ProjectStudentCard extends StatelessWidget {
             color: Colors.white,
           ),
           width: double.maxFinite,
-          height: 160,
+          height: 185,
           alignment: Alignment.topLeft,
           child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 13),
