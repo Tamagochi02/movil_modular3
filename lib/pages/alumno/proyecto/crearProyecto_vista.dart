@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movil_modular3/modelos/usuario.dart';
+import 'package:movil_modular3/pages/alumno/homeAlumno_vista.dart';
 import 'package:movil_modular3/pages/alumno/proyecto/proyecto_controlador.dart';
 
 class CreateProjectPage extends StatefulWidget {
@@ -12,14 +13,19 @@ class CreateProjectPage extends StatefulWidget {
 
 class _CreateProjectPageState extends State<CreateProjectPage> {
   final textNombreController = TextEditingController();
-  final textModuloController = TextEditingController();
   final controller = ProjectController();
   bool showDropdownStudents = false;
   bool showDropdownTeachers = false;
+  bool showDropdownModules = false;
+
   List<User> alumnos = [];
   List<String> correoAlumnosSeleccionados = [];
   List<User> docentes = [];
   List<String> correoDocentesSeleccionados = [];
+  bool _checkbox1 = false;
+  bool _checkbox2 = false;
+  bool _checkbox3 = false;
+  String modulo = "";
 
   @override
   void initState() {
@@ -44,7 +50,8 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
         centerTitle: true,
         leading: IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pushNamedAndRemoveUntil(
+                  context, StudentHomePage.route, (route) => false);
             },
             icon: const Icon(
               Icons.close,
@@ -58,23 +65,92 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
             textCapitalization: TextCapitalization.sentences,
             controller: textNombreController,
             decoration: const InputDecoration(
-              label: Text("Nombre del proyecto"),
+              label:
+                  Text("Nombre del proyecto", style: TextStyle(fontSize: 19)),
               contentPadding: EdgeInsets.symmetric(horizontal: 10),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.black),
+              ),
+              border: OutlineInputBorder(),
             ),
+            style: const TextStyle(color: Colors.black),
           ),
-          //
           const SizedBox(height: 20),
-          //
-          TextField(
-            textCapitalization: TextCapitalization.sentences,
-            controller: textModuloController,
-            decoration: const InputDecoration(
-              label: Text("Módulo"),
-              contentPadding: EdgeInsets.symmetric(horizontal: 10),
+          InkWell(
+            onTap: () {
+              setState(() {
+                showDropdownModules = !showDropdownModules;
+              });
+            },
+            child: Container(
+              width: double.maxFinite,
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: const Text("Módulo"),
             ),
           ),
-          const SizedBox(height: 40),
-
+          if (showDropdownModules)
+            Column(children: [
+              Row(
+                children: [
+                  Checkbox(
+                    value: _checkbox1,
+                    onChanged: (value) {
+                      setState(() {
+                        if (value != null && value) {
+                          modulo = "Modulo_1";
+                          _checkbox1 = true;
+                        } else {
+                          _checkbox1 = false;
+                        }
+                      });
+                    },
+                  ),
+                  const Text('Módulo 1'),
+                ],
+              ),
+              Row(
+                children: [
+                  Checkbox(
+                    value: _checkbox2,
+                    onChanged: (value) {
+                      setState(() {
+                        if (value != null && value) {
+                          modulo = "Modulo_2";
+                          _checkbox2 = true;
+                        } else {
+                          _checkbox2 = false;
+                        }
+                      });
+                    },
+                  ),
+                  const Text('Módulo 2'),
+                ],
+              ),
+              Row(
+                children: [
+                  Checkbox(
+                    value: _checkbox3,
+                    onChanged: (value) {
+                      setState(() {
+                        if (value != null && value) {
+                          modulo = "Modulo_3";
+                          _checkbox3 = true;
+                        } else {
+                          _checkbox3 = false;
+                        }
+                      });
+                    },
+                  ),
+                  const Text('Módulo 3'),
+                ],
+              ),
+            ]),
+          const SizedBox(height: 20),
           InkWell(
             onTap: () {
               setState(() {
@@ -120,9 +196,7 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
                           ],
                         ))
                     .toList()),
-
-          const SizedBox(height: 40),
-
+          const SizedBox(height: 20),
           InkWell(
             onTap: () {
               setState(() {
@@ -168,9 +242,7 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
                           ],
                         ))
                     .toList()),
-
           const SizedBox(height: 40),
-
           SizedBox(
             height: 50,
             child: ElevatedButton(
@@ -181,18 +253,18 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
                   duration: Duration(seconds: 1),
                 );
                 const snackBar_registroExitoso = SnackBar(
-                  content: Text('Se ha registrado con éxito'),
+                  content: Text('Se ha creado con éxito'),
                   backgroundColor: Colors.green,
                   duration: Duration(seconds: 1),
                 );
                 const snackBar_registroFallido = SnackBar(
-                  content: Text('Algo salió mal, no ha sido registrado'),
+                  content: Text('Algo salió mal, no ha sido creado'),
                   backgroundColor: Colors.red,
                   duration: Duration(seconds: 1),
                 );
 
                 if (textNombreController.text.isEmpty ||
-                    textModuloController.text.isEmpty ||
+                    modulo.isEmpty ||
                     correoDocentesSeleccionados.length == 0 ||
                     correoAlumnosSeleccionados.length == 0) {
                   ScaffoldMessenger.of(context)
@@ -203,11 +275,8 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
                       .addAll(correoAlumnosSeleccionados);
                   correoUsuariosSeleccionados
                       .addAll(correoDocentesSeleccionados);
-                  print(correoUsuariosSeleccionados);
                   controller
-                      .crearProyecto(
-                          textNombreController.text.trim(),
-                          textModuloController.text.trim(),
+                      .crearProyecto(textNombreController.text.trim(), modulo,
                           correoUsuariosSeleccionados)
                       .then((value) {
                     if (!value) {
@@ -216,7 +285,8 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
                     } else {
                       ScaffoldMessenger.of(context)
                           .showSnackBar(snackBar_registroExitoso);
-                      Navigator.pop(context);
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, StudentHomePage.route, (route) => false);
                     }
                   });
                 }
