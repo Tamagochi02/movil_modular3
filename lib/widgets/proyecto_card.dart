@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:movil_modular3/pages/alumno/proyecto/infoProyecto_vista.dart';
 
-class ProjectStudentCard extends StatelessWidget {
+class ProjectCard extends StatelessWidget {
   final String nombreProyecto;
   final String modulo;
   final String estado;
   final String evaluacion;
   final String id;
-  const ProjectStudentCard({
+
+  const ProjectCard({
     Key? key,
     this.nombreProyecto = "",
     this.modulo = "",
