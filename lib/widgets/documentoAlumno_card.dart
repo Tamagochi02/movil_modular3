@@ -16,16 +16,7 @@ class DocumentStudentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () {
-          /* Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => InfoProjectPage(
-                id: id,
-              ),
-            ),
-          ); */
-        },
+        onTap: () {},
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
@@ -35,10 +26,9 @@ class DocumentStudentCard extends StatelessWidget {
           height: 160,
           alignment: Alignment.topLeft,
           child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 13),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     nombre,
@@ -47,18 +37,14 @@ class DocumentStudentCard extends StatelessWidget {
                       fontSize: 25.0,
                     ),
                   ),
-                  Container(
-                    height: 25,
-                    width: 85,
-                    alignment: Alignment.center,
-                    decoration: const BoxDecoration(
-                        color: Color.fromARGB(255, 215, 215, 215),
-                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                    child: Text(
-                      titulo,
-                      style: const TextStyle(color: Colors.black),
+                  const SizedBox(height: 5),
+                  Text(
+                    titulo,
+                    style: const TextStyle(
+                      color: Colors.black,
                     ),
                   ),
+                  const Spacer(),
                   Container(
                     height: 25,
                     width: 85,
