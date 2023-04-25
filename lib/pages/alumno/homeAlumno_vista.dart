@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movil_modular3/modelos/proyecto.dart';
 import 'package:movil_modular3/pages/alumno/proyecto/crearProyecto_vista.dart';
-import 'package:movil_modular3/pages/alumno/proyecto/proyecto_controlador.dart';
+import 'package:movil_modular3/controladores/proyecto_controlador.dart';
 import 'package:movil_modular3/widgets/proyectoAlumno_card.dart';
 import 'package:movil_modular3/widgets/navigation_drawer.dart' as widgets;
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movil_modular3/modelos/usuario.dart';
 import 'package:movil_modular3/pages/alumno/homeAlumno_vista.dart';
-import 'package:movil_modular3/pages/alumno/proyecto/proyecto_controlador.dart';
+import 'package:movil_modular3/controladores/proyecto_controlador.dart';
 
 class CreateProjectPage extends StatefulWidget {
   static const String route = "/createproject";

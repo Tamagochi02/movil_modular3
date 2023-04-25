@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:movil_modular3/pages/alumno/documentos/documento_controlador.dart';
+import 'package:movil_modular3/controladores/documento_controlador.dart';
 
 class CreateDocumentPage extends StatefulWidget {
   static const String route = "/createdocument";

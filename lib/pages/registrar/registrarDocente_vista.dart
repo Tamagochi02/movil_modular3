@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movil_modular3/pages/login/login_vista.dart';
 import 'package:movil_modular3/pages/registrar/registrarUsuario.dart';
-import 'package:movil_modular3/pages/registrar/registros_controlador.dart';
+import 'package:movil_modular3/controladores/registros_controlador.dart';
 
 class RegisterTeacherPage extends StatefulWidget {
   static const String route = "/registerteacher";

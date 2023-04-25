@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:movil_modular3/modelos/documento.dart';
 import 'package:movil_modular3/modelos/proyecto.dart';
 import 'package:movil_modular3/pages/alumno/documentos/crearDocumento_vista.dart';
-import 'package:movil_modular3/pages/alumno/documentos/documento_controlador.dart';
-import 'package:movil_modular3/pages/alumno/proyecto/proyecto_controlador.dart';
+import 'package:movil_modular3/controladores/documento_controlador.dart';
+import 'package:movil_modular3/controladores/proyecto_controlador.dart';
 
 class InfoProjectPage extends StatefulWidget {
   final String id;

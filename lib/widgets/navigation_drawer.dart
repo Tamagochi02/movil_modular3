@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movil_modular3/modelos/sesion.dart';
-import 'package:movil_modular3/pages/login/login_controlador.dart';
+import 'package:movil_modular3/controladores/login_controlador.dart';
 import 'package:movil_modular3/pages/login/login_vista.dart';
 import 'package:movil_modular3/pages/alumno/homeAlumno_vista.dart';
 

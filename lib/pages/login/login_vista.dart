@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movil_modular3/modelos/sesion.dart';
 import 'package:movil_modular3/pages/alumno/homeAlumno_vista.dart';
 import 'package:movil_modular3/pages/docente/homeDocente_vista.dart';
-import 'package:movil_modular3/pages/login/login_controlador.dart';
+import 'package:movil_modular3/controladores/login_controlador.dart';
 import 'package:movil_modular3/pages/registrar/registrarUsuario.dart';
 
 class LoginPage extends StatefulWidget {

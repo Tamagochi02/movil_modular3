@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:movil_modular3/pages/alumno/proyecto/infoProyecto_vista.dart';
 
 class DocumentStudentCard extends StatelessWidget {
   final String nombre;
@@ -18,14 +17,14 @@ class DocumentStudentCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          Navigator.push(
+          /* Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => InfoProjectPage(
                 id: id,
               ),
             ),
-          );
+          ); */
         },
         child: Container(
           decoration: BoxDecoration(
