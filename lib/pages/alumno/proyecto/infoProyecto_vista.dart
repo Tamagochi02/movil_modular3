@@ -5,6 +5,7 @@ import 'package:movil_modular3/pages/alumno/documentos/crearDocumento_vista.dart
 import 'package:movil_modular3/controladores/documento_controlador.dart';
 import 'package:movil_modular3/controladores/proyecto_controlador.dart';
 import 'package:movil_modular3/widgets/documentoAlumno_card.dart';
+import 'package:movil_modular3/modelos/sesion.dart';
 
 class InfoProjectPage extends StatefulWidget {
   final String id;
@@ -172,7 +173,8 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
             ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: Session().rol == "Alumno"
+          ? FloatingActionButton(
         backgroundColor: const Color.fromARGB(255, 51, 51, 51),
         onPressed: () {
           Navigator.push(
@@ -183,7 +185,7 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
           );
         },
         child: const Icon(Icons.add),
-      ),
+      ) : null,
     );
   }
 }
