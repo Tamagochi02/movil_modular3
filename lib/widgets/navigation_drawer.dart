@@ -64,8 +64,31 @@ class NavigationDrawer extends StatelessWidget {
               //
               TextButton(
                   onPressed: () {
-                    Navigator.pushNamedAndRemoveUntil(context, LoginPage.route, (route) => false);
-                    controller.logout();
+                    const snackBar_logoutExitoso = SnackBar(
+                      content: Text('Has cerrado sesión'),
+                      backgroundColor: Colors.green,
+                      duration: Duration(seconds: 1),
+                    );
+                    const snackBar_logoutFallido = SnackBar(
+                      content: Text('Algo salió mal, no has cerrado sesión'),
+                      backgroundColor: Colors.red,
+                      duration: Duration(seconds: 1),
+                    );
+                    controller.logout().then((value) {
+                      if (!value) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(snackBar_logoutFallido);
+                      } else {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(snackBar_logoutExitoso);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginPage(),
+                          ),
+                        );
+                      }
+                    });
                   },
                   child: Row(
                     children: const [
