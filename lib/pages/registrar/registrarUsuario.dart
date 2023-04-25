@@ -11,13 +11,14 @@ class RegisterUserPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-      elevation: 0,
-      shadowColor:const Color.fromARGB(255, 51, 51, 51), 
-      backgroundColor: const Color.fromARGB(255, 51, 51, 51), 
+          elevation: 0,
+          shadowColor: const Color.fromARGB(255, 51, 51, 51),
+          backgroundColor: const Color.fromARGB(255, 51, 51, 51),
           leading: IconButton(
               onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, LoginPage.route, (route) => false);
+                Navigator.pop(context);
+/*                 Navigator.pushNamedAndRemoveUntil(
+                    context, LoginPage.route, (route) => false); */
               },
               icon: const Icon(
                 Icons.arrow_back,
@@ -29,23 +30,30 @@ class RegisterUserPage extends StatelessWidget {
         child: ListView(
           children: [
             Padding(
-              padding:
-                  const EdgeInsets.all(0),
+              padding: const EdgeInsets.all(0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text("Selecciona tu rol:", style: TextStyle(color: Colors.white, fontSize: 20.0)),
+                  const Text("Selecciona tu rol:",
+                      style: TextStyle(color: Colors.white, fontSize: 20.0)),
                   const SizedBox(height: 45),
                   SizedBox(
                     width: 300,
                     height: 150,
                     child: ElevatedButton(
                         onPressed: () {
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, RegisterStudentPage.route, (route) => false,);
+                          /* Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const RegisterStudentPage(),
+                          ),
+                        ); */
+                          Navigator.pushNamed(
+                              context, RegisterStudentPage.route);
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color.fromARGB(255, 68, 117, 223),
+                          backgroundColor:
+                              const Color.fromARGB(255, 68, 117, 223),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10),
@@ -66,8 +74,14 @@ class RegisterUserPage extends StatelessWidget {
                     height: 150,
                     child: ElevatedButton(
                         onPressed: () {
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, RegisterTeacherPage.route, (route) => false,);
+/*                           Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const RegisterTeacherPage(),
+                          ),
+                        ); */
+                          Navigator.pushNamed(
+                              context, RegisterTeacherPage.route);
                         },
                         style: ElevatedButton.styleFrom(
                           primary: const Color.fromARGB(255, 170, 96, 219),

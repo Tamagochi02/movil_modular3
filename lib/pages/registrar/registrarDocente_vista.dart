@@ -29,8 +29,7 @@ class _RegisterTeacherPageState extends State<RegisterTeacherPage> {
         centerTitle: true,
         leading: IconButton(
             onPressed: () {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, RegisterUserPage.route, (route) => false);
+              Navigator.pop(context);
             },
             icon: const Icon(
               Icons.close,
