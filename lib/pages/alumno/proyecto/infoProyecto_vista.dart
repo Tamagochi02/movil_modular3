@@ -4,6 +4,7 @@ import 'package:movil_modular3/modelos/proyecto.dart';
 import 'package:movil_modular3/pages/alumno/documentos/crearDocumento_vista.dart';
 import 'package:movil_modular3/controladores/documento_controlador.dart';
 import 'package:movil_modular3/controladores/proyecto_controlador.dart';
+import 'package:movil_modular3/widgets/documentoAlumno_card.dart';
 
 class InfoProjectPage extends StatefulWidget {
   final String id;
@@ -37,6 +38,7 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
     documentController.obtenerDocumentosPorProyectoId(widget.id).then((value) {
       setState(() {
         documentos.addAll(value);
+        estaCargando = false;
       });
     });
   }
@@ -46,7 +48,7 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Text("Proyecto",
+        title: const Text("Detalles de Proyecto",
             style: TextStyle(color: Color.fromARGB(255, 51, 51, 51))),
         centerTitle: true,
         leading: IconButton(
@@ -117,6 +119,7 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
+                                alignment: Alignment.center,
                                 width: 100,
                                 decoration: BoxDecoration(
                                   color:
@@ -128,6 +131,7 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
                                     child: Text(proyecto!.estado)),
                               ),
                               Container(
+                                alignment: Alignment.center,
                                 width: 100,
                                 decoration: BoxDecoration(
                                   color:
@@ -147,6 +151,15 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
                   const SizedBox(height: 20),
                   const Text("Documentos:",
                       style: TextStyle(fontSize: 20, color: Colors.black)),
+                  const SizedBox(height: 10),
+                  if (documentos.isNotEmpty)
+                    for (final documento in documentos)
+                      DocumentStudentCard(
+                          nombre: documento.nombre,
+                          titulo: documento.titulo,
+                          etapa: documento.etapa,
+                          id: documento.id),
+                  const SizedBox(height: 10)
                 ],
               ),
             ),
