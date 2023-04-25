@@ -27,8 +27,7 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: const Text("Proyectos"),
           centerTitle: true,
@@ -54,7 +53,6 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
             },
           ),
         ),
-      ),
-    );
+      );
   }
 }
