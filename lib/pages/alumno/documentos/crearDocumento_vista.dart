@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:movil_modular3/controladores/documento_controlador.dart';
+import 'package:movil_modular3/pages/alumno/proyecto/infoProyecto_vista.dart';
 
 class CreateDocumentPage extends StatefulWidget {
   static const String route = "/createdocument";
@@ -89,7 +90,7 @@ class _CreateDocumentPageState extends State<CreateDocumentPage> {
           ),
           const SizedBox(height: 20),
           TextField(
-            enabled: false,
+            readOnly: true,
             textCapitalization: TextCapitalization.sentences,
             controller: TextEditingController(text: "Etapa 3"),
             decoration: const InputDecoration(
@@ -239,7 +240,8 @@ class _CreateDocumentPageState extends State<CreateDocumentPage> {
                       } else {
                         ScaffoldMessenger.of(context)
                             .showSnackBar(snackBar_registroExitoso);
-                        Navigator.pop(context);
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, InfoProjectPage.route, (route) => false);
                       }
                     });
                   });
@@ -262,7 +264,7 @@ class _CreateDocumentPageState extends State<CreateDocumentPage> {
   Future<String> obtenerUrlEtapa3(String fileName) async {
     // Construimos la ruta del archivo
     final String filePath = 'lib/assets/$fileName';
-    
+
     // Verificamos si el archivo existe
     if (await File(filePath).exists()) {
       // El archivo existe
