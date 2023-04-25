@@ -64,7 +64,7 @@ class DocumentController {
       }
       return registros;
     } else {
-      throw Exception('Failed to load projects');
+      throw Exception('Error al cargar documentos');
     }
   }
 }
