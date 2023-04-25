@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:movil_modular3/modelos/docEtapa1.dart';
 import 'package:movil_modular3/modelos/documento.dart';
 import 'package:movil_modular3/modelos/sesion.dart';
 import 'package:movil_modular3/utils/config.dart';
@@ -65,6 +66,25 @@ class DocumentController {
       return registros;
     } else {
       throw Exception('Error al cargar documentos');
+    }
+  }
+
+  Future<Document> obtenerDocumentoPorId(String documentoId) async {
+    final response = await http.get(
+        Uri.parse('${Config.ipServerApiUrl}/documents/$documentoId'),
+        headers: {
+          'Content-Type': 'application/json',
+          "Cookie": Session().cookie
+        });
+    print(
+        ">> [obtenerDocumentoPorId] El servidor respondió con un código: ${response.statusCode}");
+    if (response.statusCode == 200) {
+      final jsonResponse = json.decode(response.body);
+      Document documento;
+      documento = Document.fromJson(jsonResponse);
+      return documento;
+    } else {
+      throw Exception('Error al cargar el documento');
     }
   }
 }
