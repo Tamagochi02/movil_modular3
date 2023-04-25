@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movil_modular3/pages/alumno/documentos/infoDocumento_vista.dart';
 
 class DocumentStudentCard extends StatelessWidget {
   final String nombre;
@@ -16,7 +17,16 @@ class DocumentStudentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => InfoDocumentPage(
+                documentoId: id,
+              ),
+            ),
+          );
+        },
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
