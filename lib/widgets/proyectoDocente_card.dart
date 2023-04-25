@@ -5,19 +5,21 @@ class ProjectTeacherCard extends StatelessWidget {
   final String modulo;
   final String estado;
   final String evaluacion;
+    final String id;
   const ProjectTeacherCard({
     Key? key,
     this.nombreProyecto = "",
     this.modulo = "",
     this.estado = "",
     this.evaluacion = "",
+    this.id = "",
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          /* Navigator.pushNamed(context, InfoProjectPage.route); */
+          
         },
         child: Container(
           decoration: BoxDecoration(
@@ -25,7 +27,7 @@ class ProjectTeacherCard extends StatelessWidget {
             color: Colors.white,
           ),
           width: double.maxFinite,
-          height: 160,
+          height: 185,
           alignment: Alignment.topLeft,
           child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 13),
