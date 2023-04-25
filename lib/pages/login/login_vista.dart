@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movil_modular3/modelos/sesion.dart';
-import 'package:movil_modular3/pages/alumno/homeAlumno_vista.dart';
-import 'package:movil_modular3/pages/docente/homeDocente_vista.dart';
+import 'package:movil_modular3/pages/home.dart';
 import 'package:movil_modular3/controladores/login_controlador.dart';
 import 'package:movil_modular3/pages/registrar/registrarUsuario.dart';
 
@@ -103,25 +101,8 @@ class _LoginPageState extends State<LoginPage> {
                           textContrasenaController.text.trim())
                       .then((value) {
                     if (value) {
-                      if(Session().rol=='Alumno') {
-                        /* Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const StudentHomePage(),
-                          ),
-                        ); */
-                        Navigator.pushNamedAndRemoveUntil(
-                          context, StudentHomePage.route, (route) => false);
-                      } else if (Session().rol=='Docente') {
-                        /* Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const TeacherHomePage(),
-                          ),
-                        ); */
-                        Navigator.pushNamedAndRemoveUntil(
-                          context, TeacherHomePage.route, (route) => false);
-                      }
+                     Navigator.pushNamedAndRemoveUntil(
+                          context, HomePage.route, (route) => false);
                     } else {
                       ScaffoldMessenger.of(context)
                           .showSnackBar(snackBar_usuarioNoEncontrado);

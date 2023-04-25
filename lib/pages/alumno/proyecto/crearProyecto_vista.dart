@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movil_modular3/modelos/usuario.dart';
-import 'package:movil_modular3/pages/alumno/homeAlumno_vista.dart';
+import 'package:movil_modular3/pages/home.dart';
 import 'package:movil_modular3/controladores/proyecto_controlador.dart';
 
 class CreateProjectPage extends StatefulWidget {
@@ -51,7 +51,7 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
         leading: IconButton(
             onPressed: () {
               Navigator.pushNamedAndRemoveUntil(
-                  context, StudentHomePage.route, (route) => false);
+                  context, HomePage.route, (route) => false);
             },
             icon: const Icon(
               Icons.close,
@@ -286,7 +286,7 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
                       ScaffoldMessenger.of(context)
                           .showSnackBar(snackBar_registroExitoso);
                       Navigator.pushNamedAndRemoveUntil(
-                          context, StudentHomePage.route, (route) => false);
+                          context, HomePage.route, (route) => false);
                     }
                   });
                 }

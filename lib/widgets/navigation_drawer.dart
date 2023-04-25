@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movil_modular3/modelos/sesion.dart';
 import 'package:movil_modular3/controladores/login_controlador.dart';
 import 'package:movil_modular3/pages/login/login_vista.dart';
-import 'package:movil_modular3/pages/alumno/homeAlumno_vista.dart';
+import 'package:movil_modular3/pages/home.dart';
 
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({Key? key}) : super(key: key);
@@ -43,7 +43,7 @@ class NavigationDrawer extends StatelessWidget {
               //
               TextButton(
                   onPressed: () => Navigator.pushNamedAndRemoveUntil(
-                      context, StudentHomePage.route, (route) => false),
+                      context, HomePage.route, (route) => false),
                   child: Row(
                     children: const [
                       Icon(
