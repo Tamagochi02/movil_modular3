@@ -17,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   final controller = LoginController();
   final textCorreoController = TextEditingController();
   final textContrasenaController = TextEditingController();
-  bool _isObscure = true;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,9 +104,21 @@ class _LoginPageState extends State<LoginPage> {
                       .then((value) {
                     if (value) {
                       if(Session().rol=='Alumno') {
+                        /* Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const StudentHomePage(),
+                          ),
+                        ); */
                         Navigator.pushNamedAndRemoveUntil(
                           context, StudentHomePage.route, (route) => false);
                       } else if (Session().rol=='Docente') {
+                        /* Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const TeacherHomePage(),
+                          ),
+                        ); */
                         Navigator.pushNamedAndRemoveUntil(
                           context, TeacherHomePage.route, (route) => false);
                       }
@@ -135,8 +147,14 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(color: Colors.white, fontSize: 14)),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, RegisterUserPage.route, (route) => false);
+                    /* Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const RegisterUserPage(),
+                          ),
+                        ); */
+                    Navigator.pushNamed(
+                        context, RegisterUserPage.route);
                   },
                   style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.all(5),
