@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:movil_modular3/pages/alumno/documentos/infoDocumento_vista.dart';
 
-class DocumentStudentCard extends StatelessWidget {
+class DocumentCard extends StatelessWidget {
   final String nombre;
   final String titulo;
   final String etapa;
   final String id;
-  const DocumentStudentCard({
+  const DocumentCard({
     Key? key,
     this.nombre = "",
     this.titulo = "",
