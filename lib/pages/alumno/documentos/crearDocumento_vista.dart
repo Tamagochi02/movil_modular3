@@ -1,7 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:movil_modular3/controladores/documento_controlador.dart';
+import 'package:movil_modular3/modelos/archivo2.dart';
+import 'package:movil_modular3/modelos/sesion.dart';
 import 'package:movil_modular3/pages/alumno/proyecto/infoProyecto_vista.dart';
 
 class CreateDocumentPage extends StatefulWidget {
@@ -23,6 +26,8 @@ class _CreateDocumentPageState extends State<CreateDocumentPage> {
   String nombreArchivo = "";
   String url = "";
   File? archivoSeleccionado;
+  late String archivoBase64;
+  Filee2? archivo;
 
   Future<void> seleccionarArchivo() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -34,6 +39,8 @@ class _CreateDocumentPageState extends State<CreateDocumentPage> {
       setState(() {
         archivoSeleccionado = File(result.files.single.path ?? '');
         nombreArchivo = result.files.single.name;
+        List<int> bytes = archivoSeleccionado!.readAsBytesSync();
+        archivoBase64 = base64Encode(bytes);
       });
     }
   }
@@ -221,27 +228,32 @@ class _CreateDocumentPageState extends State<CreateDocumentPage> {
                   ScaffoldMessenger.of(context)
                       .showSnackBar(snackBar_camposVacios);
                 } else {
-                  await archivoSeleccionado?.copy(
-                      'lib\\assets\\${archivoSeleccionado?.path.split('\\').last}');
-                  obtenerUrlEtapa3(nombreArchivo).then((value) {
-                    url = value;
-                  });
+                  archivo = await controller.subirArchivo(
+                      "pdf", archivoBase64, "", "Etapa3-${Session().userId}");
                   controller
                       .crearDocumento(
                           textNombreController.text.trim(),
                           textTituloController.text.trim(),
                           etapa,
                           widget.proyectoId)
-                      .then((value) {
-                    controller.crearEtapa3(url, value).then((value) {
+                      .then((documentoId) {
+                    controller
+                        .crearEtapa3(archivo!.media, documentoId)
+                        .then((value) {
                       if (!value) {
                         ScaffoldMessenger.of(context)
                             .showSnackBar(snackBar_registroFallido);
                       } else {
                         ScaffoldMessenger.of(context)
                             .showSnackBar(snackBar_registroExitoso);
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, InfoProjectPage.route, (route) => false);
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                InfoProjectPage(id: widget.proyectoId),
+                          ),
+                          (route) => false,
+                        );
                       }
                     });
                   });
@@ -259,18 +271,5 @@ class _CreateDocumentPageState extends State<CreateDocumentPage> {
         ]),
       ),
     );
-  }
-
-  Future<String> obtenerUrlEtapa3(String fileName) async {
-    // Construimos la ruta del archivo
-    final String filePath = 'lib/assets/$fileName';
-
-    // Verificamos si el archivo existe
-    if (await File(filePath).exists()) {
-      // El archivo existe
-      return filePath;
-    } else {
-      throw Exception("No existe el $fileName");
-    }
   }
 }
