@@ -1,9 +1,9 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:movil_modular3/controladores/documento_controlador.dart';
 import 'package:movil_modular3/modelos/documento.dart';
 import 'package:movil_modular3/pages/alumno/proyecto/infoProyecto_vista.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 class InfoDocumentPage extends StatefulWidget {
   static const String route = "/infoDocument";
@@ -20,23 +20,7 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
   final controller = DocumentController();
   Document? document;
   bool estaCargando = true;
-  String nombreArchivo = "";
-  String url = "";
-  /* File? archivoSeleccionado;
-
-  Future<void> seleccionarArchivo() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['pdf'],
-    );
-
-    if (result != null) {
-      setState(() {
-        archivoSeleccionado = File(result.files.single.path ?? '');
-        nombreArchivo = result.files.single.name;
-      });
-    }
-  } */
+  dynamic _futureArchivo = "";
 
   @override
   void initState() {
@@ -47,6 +31,12 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
         estaCargando = false;
       });
     });
+
+/*     controller.obtenerArchivo(document!.docEtapa3.last.url).then((value) {
+      setState(() {
+        _futureArchivo = value;
+      });
+    }); */
   }
 
   @override
@@ -124,7 +114,8 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
                 if (document!.etapa == "etapa_3")
                   InkWell(
                     onTap: () {
-                      
+                      /* print(_futureArchivo);
+                      PDFView(filePath: _futureArchivo); */
                     },
                     child: Container(
                         width: 300,
@@ -169,18 +160,5 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
         ],
       ),
     );
-  }
-
-  Future<String> obtenerUrlEtapa3(String fileName) async {
-    // Construimos la ruta del archivo
-    final String filePath = 'lib/assets/$fileName';
-
-    // Verificamos si el archivo existe
-    if (await File(filePath).exists()) {
-      // El archivo existe
-      return filePath;
-    } else {
-      throw Exception("No existe el $fileName");
-    }
   }
 }
