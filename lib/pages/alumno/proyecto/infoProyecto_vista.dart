@@ -4,15 +4,14 @@ import 'package:movil_modular3/modelos/proyecto.dart';
 import 'package:movil_modular3/pages/alumno/documentos/crearDocumento_vista.dart';
 import 'package:movil_modular3/controladores/documento_controlador.dart';
 import 'package:movil_modular3/controladores/proyecto_controlador.dart';
+import 'package:movil_modular3/pages/home.dart';
 import 'package:movil_modular3/widgets/documentoAlumno_card.dart';
 import 'package:movil_modular3/modelos/sesion.dart';
 
 class InfoProjectPage extends StatefulWidget {
   final String id;
   static const String route = "/infoProject";
-  const InfoProjectPage({Key? key, String? id})
-      : id = id ?? "",
-        super(key: key);
+  const InfoProjectPage({Key? key, this.id = ""}) : super(key: key);
 
   @override
   State<InfoProjectPage> createState() => _InfoProjectPageState();
@@ -54,7 +53,8 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
         centerTitle: true,
         leading: IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pushNamedAndRemoveUntil(
+                  context, HomePage.route, (route) => false);
             },
             icon: const Icon(
               Icons.close,
@@ -142,7 +142,24 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
                                 child: Padding(
                                     padding: const EdgeInsets.all(10),
                                     child: Text(proyecto!.evaluacion)),
-                              )
+                              ),
+                              if (Session().rol == "Docente")
+                                SizedBox(
+                                  width: 100,
+                                  height: 39,
+                                  child: ElevatedButton(
+                                      style: const ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStatePropertyAll(
+                                                Color.fromARGB(
+                                                    255, 51, 51, 51)),
+                                      ),
+                                      onPressed: () {},
+                                      child: const Text(
+                                        "Evaluar",
+                                        style: TextStyle(color: Colors.white),
+                                      )),
+                                ),
                             ],
                           )
                         ],
@@ -156,10 +173,11 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
                   if (documentos.isNotEmpty)
                     for (final documento in documentos)
                       DocumentStudentCard(
-                          nombre: documento.nombre,
-                          titulo: documento.titulo,
-                          etapa: documento.etapa,
-                          id: documento.id),
+                        nombre: documento.nombre,
+                        titulo: documento.titulo,
+                        etapa: documento.etapa,
+                        id: documento.id,
+                      ),
                   const SizedBox(height: 10)
                 ],
               ),
@@ -175,17 +193,19 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
       ),
       floatingActionButton: Session().rol == "Alumno"
           ? FloatingActionButton(
-        backgroundColor: const Color.fromARGB(255, 51, 51, 51),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => CreateDocumentPage(proyectoId: widget.id),
-            ),
-          );
-        },
-        child: const Icon(Icons.add),
-      ) : null,
+              backgroundColor: const Color.fromARGB(255, 51, 51, 51),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        CreateDocumentPage(proyectoId: widget.id),
+                  ),
+                );
+              },
+              child: const Icon(Icons.add),
+            )
+          : null,
     );
   }
 }
