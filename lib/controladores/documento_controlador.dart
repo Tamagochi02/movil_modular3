@@ -110,7 +110,7 @@ class DocumentController {
     }
   }
 
-  Future<String> obtenerArchivo(String urlMedia) async {
+  Future<dynamic> obtenerArchivo(String urlMedia) async {
     final response = await http.get(
         Uri.parse(
             'https://web-production-77aa.up.railway.app/assets/$urlMedia'),
@@ -119,10 +119,7 @@ class DocumentController {
         ">> [obtenerArchivo] El servidor respondió con un código: ${response.statusCode}");
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
-      return jsonResponse.toString();
-      /* Filee archivo;
-      archivo = Filee.fromJson(jsonResponse);
-      return archivo; */
+      return jsonResponse;
     } else {
       throw Exception('Error al cargar el documento');
     }
