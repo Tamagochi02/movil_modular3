@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:movil_modular3/modelos/docEtapa1.dart';
+import 'package:movil_modular3/modelos/archivo2.dart';
 import 'package:movil_modular3/modelos/documento.dart';
 import 'package:movil_modular3/modelos/sesion.dart';
 import 'package:movil_modular3/utils/config.dart';
@@ -23,7 +23,7 @@ class DocumentController {
     } else {
       final jsonResponse = json.decode(response.body);
       final doc = Document.fromJson(jsonResponse);
-      documentoId = doc.id!;
+      documentoId = doc.id;
       return documentoId;
     }
   }
@@ -83,6 +83,46 @@ class DocumentController {
       Document documento;
       documento = Document.fromJson(jsonResponse);
       return documento;
+    } else {
+      throw Exception('Error al cargar el documento');
+    }
+  }
+
+  Future<Filee2> subirArchivo(
+      String ext, String b64, String description, String user) async {
+    final response = await http.post(
+      Uri.parse('https://web-production-77aa.up.railway.app/posts/$user'),
+      headers: {'Content-Type': 'application/json', "Cookie": Session().cookie},
+      body: jsonEncode({
+        "media": {'ext': ext, 'b64': b64},
+        'description': description,
+      }),
+    );
+    print(
+        ">> [subirArchivo] El servidor respondió con un código: ${response.statusCode}");
+    if (response.statusCode == 200) {
+      final jsonResponse = json.decode(response.body);
+      Filee2 archivo;
+      archivo = Filee2.fromJson(jsonResponse);
+      return archivo;
+    } else {
+      throw Exception("Error al subir el archivo");
+    }
+  }
+
+  Future<String> obtenerArchivo(String urlMedia) async {
+    final response = await http.get(
+        Uri.parse(
+            'https://web-production-77aa.up.railway.app/assets/$urlMedia'),
+        headers: {'Content-Type': 'application/json'});
+    print(
+        ">> [obtenerArchivo] El servidor respondió con un código: ${response.statusCode}");
+    if (response.statusCode == 200) {
+      final jsonResponse = json.decode(response.body);
+      return jsonResponse.toString();
+      /* Filee archivo;
+      archivo = Filee.fromJson(jsonResponse);
+      return archivo; */
     } else {
       throw Exception('Error al cargar el documento');
     }
