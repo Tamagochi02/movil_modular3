@@ -22,7 +22,7 @@ class DocumentStudentCard extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => InfoDocumentPage(
-                documentoId: id,
+                documentoId: id
               ),
             ),
           );
