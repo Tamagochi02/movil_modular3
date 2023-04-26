@@ -265,8 +265,8 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
 
                 if (textNombreController.text.isEmpty ||
                     modulo.isEmpty ||
-                    correoDocentesSeleccionados.length == 0 ||
-                    correoAlumnosSeleccionados.length == 0) {
+                    correoDocentesSeleccionados.isEmpty ||
+                    correoAlumnosSeleccionados.isEmpty) {
                   ScaffoldMessenger.of(context)
                       .showSnackBar(snackBar_camposVacios);
                 } else {
