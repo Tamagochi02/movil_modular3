@@ -80,6 +80,7 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
                 ),
                 const SizedBox(height: 20),
                 TextField(
+                  readOnly: true,
                   textCapitalization: TextCapitalization.sentences,
                   controller: TextEditingController(text: document!.titulo),
                   decoration: const InputDecoration(
