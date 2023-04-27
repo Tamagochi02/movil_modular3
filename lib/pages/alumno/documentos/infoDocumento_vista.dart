@@ -5,7 +5,7 @@ import 'package:movil_modular3/controladores/documento_controlador.dart';
 import 'package:movil_modular3/modelos/documento.dart';
 import 'package:movil_modular3/modelos/sesion.dart';
 import 'package:movil_modular3/pages/alumno/proyecto/infoProyecto_vista.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class InfoDocumentPage extends StatefulWidget {
   static const String route = "/infoDocument";
@@ -76,17 +76,17 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
           if (document != null)
             Padding(
               padding: const EdgeInsets.all(20),
-              child: ListView(
+              child: Column(
                 children: [
                   Container(
-                    height: 340,
+                    height: 335,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(20),
-                      child: ListView(
+                      child: Column(
                         children: [
                           TextField(
                             readOnly: true,
@@ -151,6 +151,7 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
                             PDFView(filePath: _futureArchivo); */
                               },
                               child: Container(
+                                  width: 400,
                                   decoration: BoxDecoration(
                                       color: const Color.fromARGB(
                                           255, 243, 195, 195),
@@ -185,11 +186,47 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
                                     ),
                                   )),
                             ),
-                          const SizedBox(height: 20),
                         ],
                       ),
                     ),
                   ),
+                  const SizedBox(height: 20),
+                  if (Session().rol == "Alumno")
+                    Container(
+                      height: 100,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: ListView(children: [
+                          TextField(
+                            maxLines: null,
+                            textCapitalization: TextCapitalization.sentences,
+                            controller: TextEditingController(text: ""),
+                            decoration: const InputDecoration(
+                              label: Text("Observaciones",
+                                  style: TextStyle(fontSize: 19)),
+                              contentPadding:
+                                  EdgeInsets.symmetric(horizontal: 10),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black),
+                              ),
+                              border: OutlineInputBorder(),
+                            ),
+                            style: const TextStyle(color: Colors.black),
+                          ),
+                        ]),
+                      ),
+                    ),
+                  ElevatedButton(
+                      onPressed: () {
+                        final uri = Uri.https(
+                            'web-production-77aa.up.railway.app','/assets/${document!.docEtapa3.last.url}');
+                        launchUrl(uri, mode: LaunchMode.externalApplication);
+                      },
+                      child: const Text("Abrir documento")),
                   const SizedBox(height: 20),
                   if (Session().rol == "Docente")
                     Column(
@@ -201,7 +238,7 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
                           const SizedBox(height: 10),
                           Container(
                             decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 255, 255, 255),
+                              color: const Color.fromARGB(255, 255, 255, 255),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Padding(
