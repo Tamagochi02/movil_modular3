@@ -18,8 +18,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {
-        // Lista de rutas
+      debugShowCheckedModeBanner: false,
+      routes: { // Lista de rutas
         LoginPage.route: (context) => const LoginPage(),
         RegisterStudentPage.route: (context) => const RegisterStudentPage(),
         RegisterTeacherPage.route: (context) => const RegisterTeacherPage(),
