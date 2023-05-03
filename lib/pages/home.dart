@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
             ),
           if (estaCargando)
             Container(
-              color: Colors.white.withOpacity(0.8),
+              color: const Color.fromARGB(215, 255, 255, 255),
               child: const Center(
                 child: CircularProgressIndicator(),
               ),
