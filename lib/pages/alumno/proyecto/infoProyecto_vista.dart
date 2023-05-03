@@ -5,7 +5,7 @@ import 'package:movil_modular3/pages/alumno/documentos/crearDocumento_vista.dart
 import 'package:movil_modular3/controladores/documento_controlador.dart';
 import 'package:movil_modular3/controladores/proyecto_controlador.dart';
 import 'package:movil_modular3/pages/home.dart';
-import 'package:movil_modular3/widgets/documentoAlumno_card.dart';
+import 'package:movil_modular3/widgets/documento_card.dart';
 import 'package:movil_modular3/modelos/sesion.dart';
 
 class InfoProjectPage extends StatefulWidget {
@@ -74,6 +74,7 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
                       style: TextStyle(fontSize: 20, color: Colors.black)),
                   const SizedBox(height: 10),
                   Container(
+                    width: MediaQuery.of(context).size.width * 0.9, // obtiene el tamaño de la pantalla
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
@@ -84,6 +85,7 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
                         children: [
                           TextField(
                             readOnly: true,
+                            maxLines: null,
                             textCapitalization: TextCapitalization.sentences,
                             controller:
                                 TextEditingController(text: proyecto!.nombre),
@@ -91,7 +93,7 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
                               label: Text("Nombre del proyecto",
                                   style: TextStyle(fontSize: 19)),
                               contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 10),
+                                  EdgeInsets.all(10),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.black),
                               ),
@@ -146,6 +148,35 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
                               ),
                             ],
                           ),
+                          const SizedBox(height: 15),
+                          const Divider(),
+                          const SizedBox(height: 15),
+                          const Text("Integrantes:",
+                              style:
+                                  TextStyle(fontSize: 19, color: Colors.black)),
+                          const SizedBox(height: 15),
+                          DataTable(
+                            border: TableBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            columns: const [
+                              DataColumn(label: Text('Nombre')),
+                              DataColumn(label: Text('Matrícula')),
+                            ],
+                            rows: const [
+                              DataRow(cells: [
+                                DataCell(Text('Juan')),
+                                DataCell(Text('Madrid')),
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('María')),
+                                DataCell(Text('Barcelona')),
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('Pedro')),
+                                DataCell(Text('Valencia')),
+                              ]),
+                            ],
+                          ),
                         ],
                       ),
                     ),
@@ -156,19 +187,21 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
                   const SizedBox(height: 10),
                   if (documentos.isNotEmpty)
                     for (final documento in documentos)
-                      DocumentCard(
-                        nombre: documento.nombre,
-                        titulo: documento.titulo,
-                        etapa: documento.etapa,
-                        id: documento.id,
-                      ),
-                  const SizedBox(height: 10)
+                      Column(children: [
+                        DocumentCard(
+                          nombre: documento.nombre,
+                          titulo: documento.titulo,
+                          etapa: documento.etapa,
+                          id: documento.id,
+                        ),
+                        const SizedBox(height: 10)
+                      ]),
                 ],
               ),
             ),
           if (estaCargando)
             Container(
-              color: Colors.white.withOpacity(0.8),
+              color: const Color.fromARGB(215, 255, 255, 255),
               child: const Center(
                 child: CircularProgressIndicator(),
               ),
