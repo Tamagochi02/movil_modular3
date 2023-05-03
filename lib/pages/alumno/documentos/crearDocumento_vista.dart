@@ -120,7 +120,7 @@ class _CreateDocumentPageState extends State<CreateDocumentPage> {
                     seleccionarArchivo();
                   },
                   child: Container(
-                      width: 300,
+                      width: MediaQuery.of(context).size.width * 0.7, // obtiene el tamaño de la pantalla
                       decoration: BoxDecoration(
                           color: Colors.grey[350],
                           borderRadius: BorderRadius.circular(10)),
