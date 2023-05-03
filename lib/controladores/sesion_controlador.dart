@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:movil_modular3/modelos/sesion.dart';
 import 'package:movil_modular3/utils/config.dart';
 
-class LoginController {
+class SessionController {
   Future<bool> login(String correo, String contrasena) async {
     final response = await http.post(
       Uri.parse('${Config.ipServerApiUrl}/login'),
