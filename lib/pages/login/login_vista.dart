@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movil_modular3/pages/home.dart';
-import 'package:movil_modular3/controladores/login_controlador.dart';
+import 'package:movil_modular3/controladores/sesion_controlador.dart';
 import 'package:movil_modular3/pages/registrar/registrarUsuario.dart';
 
 class LoginPage extends StatefulWidget {
@@ -12,7 +12,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final controller = LoginController();
+  final controller = SessionController();
   final textCorreoController = TextEditingController();
   final textContrasenaController = TextEditingController();
   
@@ -34,6 +34,8 @@ class _LoginPageState extends State<LoginPage> {
             TextField(
               textCapitalization: TextCapitalization.sentences,
               controller: textCorreoController,
+              keyboardType: TextInputType.emailAddress,
+              autofillHints: const [AutofillHints.email],
               decoration: const InputDecoration(
                 contentPadding: EdgeInsets.symmetric(horizontal: 10),
                 label: Text(
