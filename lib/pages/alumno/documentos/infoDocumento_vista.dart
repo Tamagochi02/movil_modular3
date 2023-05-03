@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:movil_modular3/controladores/calificar_controlador.dart';
 import 'package:movil_modular3/controladores/documento_controlador.dart';
 import 'package:movil_modular3/modelos/documento.dart';
@@ -23,8 +22,7 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
   final controller = DocumentController();
   Document? document;
   bool estaCargando = true;
-  dynamic _futureArchivo = "";
-  final evaluationnController = evaluationController();
+  final evaluationnController = EvaluationController();
   final textObservacionesController = TextEditingController();
   bool _checkboxStatus1 = false;
   bool _checkboxStatus2 = false;
@@ -45,12 +43,6 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
         estaCargando = false;
       });
     });
-
-/*     controller.obtenerArchivo(document!.docEtapa3.last.url).then((value) {
-      setState(() {
-        _futureArchivo = value;
-      });
-    }); */
   }
 
   @override
@@ -76,10 +68,13 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
           if (document != null)
             Padding(
               padding: const EdgeInsets.all(20),
-              child: Column(
+              child: ListView(
                 children: [
+                  const Text("Información:",
+                      style: TextStyle(fontSize: 20, color: Colors.black)),
+                  const SizedBox(height: 10),
                   Container(
-                    height: 335,
+                    width: MediaQuery.of(context).size.width * 0.9,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
@@ -90,6 +85,7 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
                         children: [
                           TextField(
                             readOnly: true,
+                            maxLines: null,
                             textCapitalization: TextCapitalization.sentences,
                             controller:
                                 TextEditingController(text: document!.nombre),
@@ -108,6 +104,7 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
                           const SizedBox(height: 20),
                           TextField(
                             readOnly: true,
+                            maxLines: null,
                             textCapitalization: TextCapitalization.sentences,
                             controller:
                                 TextEditingController(text: document!.titulo),
@@ -115,7 +112,7 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
                               label: Text("Título del documento",
                                   style: TextStyle(fontSize: 19)),
                               contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 10),
+                                  EdgeInsets.all(10),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.black),
                               ),
@@ -141,50 +138,55 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
                             ),
                             style: const TextStyle(color: Colors.black),
                           ),
-                          const SizedBox(height: 20),
-                          /* if(document!.etapa == "etapa_1")
-                      if(document!.etapa == "etapa_2") */
                           if (document!.etapa == "etapa_3")
-                            InkWell(
-                              onTap: () {
-                                /* print(_futureArchivo);
-                            PDFView(filePath: _futureArchivo); */
-                              },
-                              child: Container(
-                                  width: 400,
-                                  decoration: BoxDecoration(
-                                      color: const Color.fromARGB(
-                                          255, 243, 195, 195),
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Wrap(
-                                      crossAxisAlignment:
-                                          WrapCrossAlignment.center,
-                                      spacing: 20,
-                                      children: [
-                                        SizedBox(
-                                          height: 70,
-                                          width: 70,
-                                          child: Container(
-                                            alignment: Alignment.center,
-                                            decoration: BoxDecoration(
-                                                color: const Color.fromARGB(
-                                                    255, 198, 74, 67),
-                                                borderRadius:
-                                                    BorderRadius.circular(10)),
-                                            child: const Text("PDF",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.bold)),
-                                          ),
+                            Column(
+                              children: [
+                                const SizedBox(height: 10),
+                                InkWell(
+                                  onTap: () {
+                                    final uri = Uri.https(
+                                        'web-production-77aa.up.railway.app',
+                                        '/assets/${document!.docEtapa3.last.url}');
+                                    launchUrl(uri,
+                                        mode: LaunchMode.externalApplication);
+                                  },
+                                  child: Container(
+                                      width: 400,
+                                      decoration: BoxDecoration(
+                                          color: const Color.fromARGB(
+                                              255, 243, 195, 195),
+                                          borderRadius: BorderRadius.circular(10)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10),
+                                        child: Wrap(
+                                          crossAxisAlignment:
+                                              WrapCrossAlignment.center,
+                                          spacing: 20,
+                                          children: [
+                                            SizedBox(
+                                              height: 70,
+                                              width: 70,
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                decoration: BoxDecoration(
+                                                    color: const Color.fromARGB(
+                                                        255, 198, 74, 67),
+                                                    borderRadius:
+                                                        BorderRadius.circular(10)),
+                                                child: const Text("PDF",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ),
+                                            ),
+                                            const Text(
+                                                'Visualizar documento registrado'),
+                                          ],
                                         ),
-                                        const Text(
-                                            'Visualizar documento registrado'),
-                                      ],
-                                    ),
-                                  )),
+                                      )),
+                                ),
+                              ],
                             ),
                         ],
                       ),
@@ -194,6 +196,7 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
                   if (Session().rol == "Alumno")
                     Container(
                       height: 100,
+                      width: MediaQuery.of(context).size.width * 0.9, // obtiene el tamaño de la pantalla
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
@@ -202,14 +205,13 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
                         padding: const EdgeInsets.all(20),
                         child: ListView(children: [
                           TextField(
+                            readOnly: true,
                             maxLines: null,
-                            textCapitalization: TextCapitalization.sentences,
                             controller: TextEditingController(text: ""),
                             decoration: const InputDecoration(
                               label: Text("Observaciones",
                                   style: TextStyle(fontSize: 19)),
-                              contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 10),
+                              contentPadding: EdgeInsets.all(10),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.black),
                               ),
@@ -220,14 +222,6 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
                         ]),
                       ),
                     ),
-                  ElevatedButton(
-                      onPressed: () {
-                        final uri = Uri.https(
-                            'web-production-77aa.up.railway.app','/assets/${document!.docEtapa3.last.url}');
-                        launchUrl(uri, mode: LaunchMode.externalApplication);
-                      },
-                      child: const Text("Abrir documento")),
-                  const SizedBox(height: 20),
                   if (Session().rol == "Docente")
                     Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -388,7 +382,7 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
                                       label: Text("Observaciones",
                                           style: TextStyle(fontSize: 19)),
                                       contentPadding:
-                                          EdgeInsets.symmetric(horizontal: 10),
+                                          EdgeInsets.all(10),
                                       enabledBorder: OutlineInputBorder(
                                         borderSide:
                                             BorderSide(color: Colors.black),
@@ -403,12 +397,14 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
                                     width: 100,
                                     child: ElevatedButton(
                                       onPressed: () {
+                                        // ignore: constant_identifier_names
                                         const snackBar_camposVacios = SnackBar(
                                           content: Text(
                                               'Debes llenar todos los campos'),
                                           backgroundColor: Colors.red,
                                           duration: Duration(seconds: 1),
                                         );
+                                        // ignore: constant_identifier_names
                                         const snackBar_registroExitoso =
                                             SnackBar(
                                           content:
@@ -416,6 +412,7 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
                                           backgroundColor: Colors.green,
                                           duration: Duration(seconds: 1),
                                         );
+                                        // ignore: constant_identifier_names
                                         const snackBar_registroFallido =
                                             SnackBar(
                                           content: Text(
@@ -485,7 +482,7 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
             ),
           if (estaCargando)
             Container(
-              color: Colors.white.withOpacity(0.8),
+              color: const Color.fromARGB(215, 255, 255, 255),
               child: const Center(
                 child: CircularProgressIndicator(),
               ),
