@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:movil_modular3/modelos/sesion.dart';
 import 'package:movil_modular3/utils/config.dart';
 
-class evaluationController {
+class EvaluationController {
   Future<bool> evaluar(
       String estado, String evaluacion, String proyectoId) async {
     final response = await http.put(
