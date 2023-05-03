@@ -36,13 +36,12 @@ class ProjectCard extends StatelessWidget {
             color: Colors.white,
           ),
           width: double.maxFinite,
-          height: 185,
+          height: null,
           alignment: Alignment.topLeft,
           child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 13),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     nombreProyecto,
@@ -51,6 +50,7 @@ class ProjectCard extends StatelessWidget {
                       fontSize: 25.0,
                     ),
                   ),
+                  const SizedBox(height: 7),
                   Container(
                     height: 25,
                     width: 85,
@@ -63,6 +63,7 @@ class ProjectCard extends StatelessWidget {
                       style: const TextStyle(color: Colors.black),
                     ),
                   ),
+                  const SizedBox(height: 10),
                   Container(
                     height: 25,
                     width: 85,
@@ -75,6 +76,7 @@ class ProjectCard extends StatelessWidget {
                       style: const TextStyle(color: Colors.black),
                     ),
                   ),
+                  const SizedBox(height: 10),
                   Container(
                     height: 25,
                     width: 85,
