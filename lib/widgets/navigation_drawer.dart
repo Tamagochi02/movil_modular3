@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movil_modular3/modelos/sesion.dart';
-import 'package:movil_modular3/controladores/login_controlador.dart';
+import 'package:movil_modular3/controladores/sesion_controlador.dart';
 import 'package:movil_modular3/pages/login/login_vista.dart';
 import 'package:movil_modular3/pages/home.dart';
 
@@ -9,7 +9,7 @@ class NavigationDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = LoginController();
+    final controller = SessionController();
     return Drawer(
         width: 240,
         child: Padding(
