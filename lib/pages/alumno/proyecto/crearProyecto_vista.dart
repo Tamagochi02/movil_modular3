@@ -247,16 +247,19 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
             height: 50,
             child: ElevatedButton(
               onPressed: () {
+                // ignore: constant_identifier_names
                 const snackBar_camposVacios = SnackBar(
                   content: Text('Debes llenar todos los campos'),
                   backgroundColor: Colors.red,
                   duration: Duration(seconds: 1),
                 );
+                // ignore: constant_identifier_names
                 const snackBar_registroExitoso = SnackBar(
                   content: Text('Se ha creado con éxito'),
                   backgroundColor: Colors.green,
                   duration: Duration(seconds: 1),
                 );
+                // ignore: constant_identifier_names
                 const snackBar_registroFallido = SnackBar(
                   content: Text('Algo salió mal, no ha sido creado'),
                   backgroundColor: Colors.red,
@@ -292,7 +295,7 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                primary: const Color.fromARGB(255, 51, 51, 51),
+                backgroundColor: const Color.fromARGB(255, 51, 51, 51),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(35.0),
                 ),
