@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movil_modular3/pages/alumno/documentos/crearDocumento_vista.dart';
-import 'package:movil_modular3/pages/alumno/proyecto/crearProyecto_vista.dart';
-import 'package:movil_modular3/pages/alumno/proyecto/infoProyecto_vista.dart';
+import 'package:movil_modular3/pages/documentos/crearDocumento_vista.dart';
+import 'package:movil_modular3/pages/proyecto/crearProyecto_vista.dart';
+import 'package:movil_modular3/pages/proyecto/infoProyecto_vista.dart';
 import 'package:movil_modular3/pages/login/login_vista.dart';
 import 'package:movil_modular3/pages/registrar/registrarAlumno_vista.dart';
 import 'package:movil_modular3/pages/registrar/registrarDocente_vista.dart';

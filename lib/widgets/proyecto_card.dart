@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movil_modular3/pages/alumno/proyecto/infoProyecto_vista.dart';
+import 'package:movil_modular3/pages/proyecto/infoProyecto_vista.dart';
 
 class ProjectCard extends StatelessWidget {
   final String nombreProyecto;

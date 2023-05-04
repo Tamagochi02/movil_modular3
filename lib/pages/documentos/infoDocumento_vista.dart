@@ -3,7 +3,7 @@ import 'package:movil_modular3/controladores/calificar_controlador.dart';
 import 'package:movil_modular3/controladores/documento_controlador.dart';
 import 'package:movil_modular3/modelos/documento.dart';
 import 'package:movil_modular3/modelos/sesion.dart';
-import 'package:movil_modular3/pages/alumno/proyecto/infoProyecto_vista.dart';
+import 'package:movil_modular3/pages/proyecto/infoProyecto_vista.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class InfoDocumentPage extends StatefulWidget {

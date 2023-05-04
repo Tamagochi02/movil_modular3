@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movil_modular3/pages/alumno/documentos/infoDocumento_vista.dart';
+import 'package:movil_modular3/pages/documentos/infoDocumento_vista.dart';
 
 class DocumentCard extends StatelessWidget {
   final String nombre;
