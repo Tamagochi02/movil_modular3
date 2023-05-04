@@ -167,16 +167,21 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
                             border: TableBorder(
                                 borderRadius: BorderRadius.circular(10)),
                             columns: const [
-                              DataColumn(label: Text('Nombre')),
-                              DataColumn(label: Text('Matrícula')),
+                              DataColumn(
+                                  label: Text('Nombre')),
+                              DataColumn(
+                                  label: Text('Matrícula')),
                             ],
                             rows: integrantes
                                 .map((usuario) => DataRow(cells: [
                                       DataCell(Text(usuario.nombre ?? "")),
                                       DataCell(Text(
-                                          usuario.matricula?.matricula??"")),
+                                          usuario.matricula?.matricula ?? "")),
                                     ]))
                                 .toList(),
+                            horizontalMargin: 10,
+                            columnSpacing: 18,
+                            dividerThickness: 1.5,
                           ),
                         ],
                       ),
