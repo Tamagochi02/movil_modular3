@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
                 )),
             const SizedBox(height: 100),
             TextField(
-              textCapitalization: TextCapitalization.sentences,
+              enableInteractiveSelection: true,
               controller: textCorreoController,
               keyboardType: TextInputType.emailAddress,
               autofillHints: const [AutofillHints.email],
@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             const SizedBox(height: 45),
             TextField(
-              enableInteractiveSelection: false,
+              enableInteractiveSelection: true,
               obscureText: true,
               controller: textContrasenaController,
               decoration: const InputDecoration(
