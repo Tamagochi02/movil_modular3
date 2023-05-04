@@ -5,13 +5,15 @@ class DocumentCard extends StatelessWidget {
   final String nombre;
   final String titulo;
   final String etapa;
-  final String id;
+  final String documentoId;
+  final String proyectoId;
   const DocumentCard({
     Key? key,
     this.nombre = "",
     this.titulo = "",
     this.etapa = "",
-    this.id = "",
+    this.documentoId = "",
+    this.proyectoId = "",
   }) : super(key: key);
 
   @override
@@ -22,7 +24,8 @@ class DocumentCard extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => InfoDocumentPage(
-                documentoId: id
+                documentoId: documentoId,
+                proyectoId: proyectoId,
               ),
             ),
           );

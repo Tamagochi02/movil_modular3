@@ -198,7 +198,8 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
                           nombre: documento.nombre,
                           titulo: documento.titulo,
                           etapa: documento.etapa,
-                          id: documento.id,
+                          documentoId: documento.id,
+                          proyectoId: widget.id,
                         ),
                         const SizedBox(height: 10)
                       ]),
