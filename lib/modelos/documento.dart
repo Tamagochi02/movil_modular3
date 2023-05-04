@@ -37,40 +37,40 @@ class Document {
     if (json['DocEtapa1'] != null) {
       docEtapa1 = <DocStage1>[];
       json['DocEtapa1'].forEach((v) {
-        docEtapa1!.add(new DocStage1.fromJson(v));
+        docEtapa1.add(new DocStage1.fromJson(v));
       });
     }
     if (json['DocEtapa2'] != null) {
       docEtapa2 = <DocStage2>[];
       json['DocEtapa2'].forEach((v) {
-        docEtapa2!.add(new DocStage2.fromJson(v));
+        docEtapa2.add(new DocStage2.fromJson(v));
       });
     }
     if (json['DocEtapa3'] != null) {
       docEtapa3 = <DocStage3>[];
       json['DocEtapa3'].forEach((v) {
-        docEtapa3!.add(new DocStage3.fromJson(v));
+        docEtapa3.add(new DocStage3.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['nombre'] = this.nombre;
-    data['titulo'] = this.titulo;
-    data['etapa'] = this.etapa;
-    data['creadoEn'] = this.creadoEn;
-    data['actualizadoEn'] = this.actualizadoEn;
-    data['proyectoId'] = this.proyectoId;
-    if (this.docEtapa1 != null) {
-      data['DocEtapa1'] = this.docEtapa1!.map((v) => v.toJson()).toList();
+    data['id'] = id;
+    data['nombre'] = nombre;
+    data['titulo'] = titulo;
+    data['etapa'] = etapa;
+    data['creadoEn'] = creadoEn;
+    data['actualizadoEn'] = actualizadoEn;
+    data['proyectoId'] = proyectoId;
+    if (docEtapa1 != null) {
+      data['DocEtapa1'] = docEtapa1.map((v) => v.toJson()).toList();
     }
-    if (this.docEtapa2 != null) {
-      data['DocEtapa2'] = this.docEtapa2!.map((v) => v.toJson()).toList();
+    if (docEtapa2 != null) {
+      data['DocEtapa2'] = docEtapa2.map((v) => v.toJson()).toList();
     }
-    if (this.docEtapa3 != null) {
-      data['DocEtapa3'] = this.docEtapa3!.map((v) => v.toJson()).toList();
+    if (docEtapa3 != null) {
+      data['DocEtapa3'] = docEtapa3.map((v) => v.toJson()).toList();
     }
     return data;
   }
