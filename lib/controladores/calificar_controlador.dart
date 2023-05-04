@@ -6,7 +6,7 @@ import 'package:movil_modular3/utils/config.dart';
 class EvaluationController {
   Future<bool> evaluar(
       String estado, String evaluacion, String proyectoId) async {
-    final response = await http.put(
+    final response = await http.post(
         Uri.parse('${Config.ipServerApiUrl}/evaluarProyecto'),
         headers: {
           'Content-Type': 'application/json',
@@ -14,7 +14,6 @@ class EvaluationController {
         },
         body: jsonEncode(
             {"estado": estado, "evaluacion": evaluacion, "id": proyectoId}));
-
     print(
         ">> [evaluar] El servidor respondió con un código: ${response.statusCode}");
     if (response.statusCode != 200) return false;
