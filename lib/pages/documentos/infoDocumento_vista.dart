@@ -22,7 +22,7 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
   final controller = DocumentController();
   Document? document;
   bool estaCargando = true;
-  final evaluationnController = EvaluationController();
+  final evaluationController = EvaluationController();
   final textObservacionesController = TextEditingController();
   bool _checkboxStatus1 = false;
   bool _checkboxStatus2 = false;
@@ -111,8 +111,7 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
                             decoration: const InputDecoration(
                               label: Text("Título del documento",
                                   style: TextStyle(fontSize: 19)),
-                              contentPadding:
-                                  EdgeInsets.all(10),
+                              contentPadding: EdgeInsets.all(10),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.black),
                               ),
@@ -155,7 +154,8 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
                                       decoration: BoxDecoration(
                                           color: const Color.fromARGB(
                                               255, 243, 195, 195),
-                                          borderRadius: BorderRadius.circular(10)),
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
                                       child: Padding(
                                         padding: const EdgeInsets.all(10),
                                         child: Wrap(
@@ -172,7 +172,8 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
                                                     color: const Color.fromARGB(
                                                         255, 198, 74, 67),
                                                     borderRadius:
-                                                        BorderRadius.circular(10)),
+                                                        BorderRadius.circular(
+                                                            10)),
                                                 child: const Text("PDF",
                                                     style: TextStyle(
                                                         color: Colors.white,
@@ -196,7 +197,8 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
                   if (Session().rol == "Alumno")
                     Container(
                       height: 100,
-                      width: MediaQuery.of(context).size.width * 0.9, // obtiene el tamaño de la pantalla
+                      width: MediaQuery.of(context).size.width *
+                          0.9, // obtiene el tamaño de la pantalla
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
@@ -222,8 +224,6 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
                         ]),
                       ),
                     ),
-
-                    
                   if (Session().rol == "Docente")
                     Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -383,8 +383,7 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
                                     decoration: const InputDecoration(
                                       label: Text("Observaciones",
                                           style: TextStyle(fontSize: 19)),
-                                      contentPadding:
-                                          EdgeInsets.all(10),
+                                      contentPadding: EdgeInsets.all(10),
                                       enabledBorder: OutlineInputBorder(
                                         borderSide:
                                             BorderSide(color: Colors.black),
@@ -407,7 +406,7 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
                                           duration: Duration(seconds: 1),
                                         );
                                         // ignore: constant_identifier_names
-                                        const snackBar_registroExitoso =
+                                        const snackBar_evaluacionExitosa =
                                             SnackBar(
                                           content:
                                               Text('Se ha evaluado con exito'),
@@ -415,7 +414,7 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
                                           duration: Duration(seconds: 1),
                                         );
                                         // ignore: constant_identifier_names
-                                        const snackBar_registroFallido =
+                                        const snackBar_evaluacionFallida =
                                             SnackBar(
                                           content: Text(
                                               'Algo salió mal, no se realizó la evaluación'),
@@ -423,44 +422,75 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
                                           duration: Duration(seconds: 1),
                                         );
 
-                                        if (textObservacionesController
-                                                .text.isEmpty ||
-                                            estado.isEmpty ||
+                                        if (estado.isEmpty ||
                                             evaluacion.isEmpty) {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
                                                   snackBar_camposVacios);
                                         } else {
-                                          evaluationnController
-                                              .evaluar(estado, evaluacion,
-                                                  widget.proyectoId)
-                                              .then((value) {
-                                            if (value) {
-                                              evaluationnController
-                                                  .crearObservacion(
-                                                      textObservacionesController
-                                                          .text
-                                                          .trim(),
-                                                      widget.documentoId)
-                                                  .then((value) {
-                                                if (value) {
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(
-                                                          snackBar_registroExitoso);
-                                                  Navigator
-                                                      .pushNamedAndRemoveUntil(
-                                                          context,
-                                                          InfoDocumentPage
-                                                              .route,
-                                                          (route) => false);
-                                                }
-                                              });
-                                            } else {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                      snackBar_registroFallido);
-                                            }
-                                          });
+                                          if (textObservacionesController
+                                              .text.isEmpty) {
+                                            evaluationController
+                                                .evaluar(estado, evaluacion,
+                                                    widget.proyectoId)
+                                                .then((value) {
+                                              if (value) {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                        snackBar_evaluacionExitosa);
+                                                Navigator.pushAndRemoveUntil(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          InfoProjectPage(
+                                                              id: widget
+                                                                  .proyectoId),
+                                                    ),
+                                                    (route) => false);
+                                              } else {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                        snackBar_evaluacionFallida);
+                                              }
+                                            });
+                                          } else {
+                                            evaluationController
+                                                .crearObservacion(
+                                                    textObservacionesController
+                                                        .text
+                                                        .trim(),
+                                                    widget.documentoId)
+                                                .then((value) {
+                                              if (value) {
+                                                evaluationController
+                                                    .evaluar(estado, evaluacion,
+                                                        widget.proyectoId)
+                                                    .then((value) {
+                                                  if (value) {
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                            snackBar_evaluacionExitosa);
+                                                    Navigator
+                                                        .pushAndRemoveUntil(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  InfoProjectPage(
+                                                                      id: widget
+                                                                          .proyectoId),
+                                                            ),
+                                                            (route) => false);
+                                                  } else {
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                            snackBar_evaluacionFallida);
+                                                  }
+                                                });
+                                              }
+                                            });
+                                          }
                                         }
                                       },
                                       style: ElevatedButton.styleFrom(
