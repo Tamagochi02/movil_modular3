@@ -222,11 +222,13 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
                         ]),
                       ),
                     ),
+
+                    
                   if (Session().rol == "Docente")
                     Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("Evalua:",
+                          const Text("Evaluar:",
                               style:
                                   TextStyle(fontSize: 20, color: Colors.black)),
                           const SizedBox(height: 10),
