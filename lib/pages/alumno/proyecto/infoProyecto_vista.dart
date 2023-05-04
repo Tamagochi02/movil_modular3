@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movil_modular3/modelos/documento.dart';
 import 'package:movil_modular3/modelos/proyecto.dart';
+import 'package:movil_modular3/modelos/usuario.dart';
 import 'package:movil_modular3/pages/alumno/documentos/crearDocumento_vista.dart';
 import 'package:movil_modular3/controladores/documento_controlador.dart';
 import 'package:movil_modular3/controladores/proyecto_controlador.dart';
@@ -22,6 +23,7 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
   final documentController = DocumentController();
   final textObservacionesController = TextEditingController();
   List<Document> documentos = [];
+  List<User> integrantes = [];
   Project? proyecto;
   bool estaCargando = true;
 
@@ -40,6 +42,12 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
       setState(() {
         documentos.addAll(value);
         estaCargando = false;
+      });
+    });
+
+    projectController.obtenerIntegrantesProyecto(widget.id).then((value) {
+      setState(() {
+        integrantes.addAll(value);
       });
     });
   }
@@ -74,7 +82,8 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
                       style: TextStyle(fontSize: 20, color: Colors.black)),
                   const SizedBox(height: 10),
                   Container(
-                    width: MediaQuery.of(context).size.width * 0.9, // obtiene el tamaño de la pantalla
+                    width: MediaQuery.of(context).size.width *
+                        0.9, // obtiene el tamaño de la pantalla
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
@@ -92,8 +101,7 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
                             decoration: const InputDecoration(
                               label: Text("Nombre del proyecto",
                                   style: TextStyle(fontSize: 19)),
-                              contentPadding:
-                                  EdgeInsets.all(10),
+                              contentPadding: EdgeInsets.all(10),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.black),
                               ),
@@ -162,20 +170,13 @@ class _InfoProjectPageState extends State<InfoProjectPage> {
                               DataColumn(label: Text('Nombre')),
                               DataColumn(label: Text('Matrícula')),
                             ],
-                            rows: const [
-                              DataRow(cells: [
-                                DataCell(Text('Juan')),
-                                DataCell(Text('Madrid')),
-                              ]),
-                              DataRow(cells: [
-                                DataCell(Text('María')),
-                                DataCell(Text('Barcelona')),
-                              ]),
-                              DataRow(cells: [
-                                DataCell(Text('Pedro')),
-                                DataCell(Text('Valencia')),
-                              ]),
-                            ],
+                            rows: integrantes
+                                .map((usuario) => DataRow(cells: [
+                                      DataCell(Text(usuario.nombre ?? "")),
+                                      DataCell(Text(
+                                          usuario.matricula?.matricula??"")),
+                                    ]))
+                                .toList(),
                           ),
                         ],
                       ),
