@@ -26,6 +26,8 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
   bool _checkbox2 = false;
   bool _checkbox3 = false;
   String modulo = "";
+  var ultimaCasillaSeleccionadaDocentes;
+  var _casillaSeleccionadaModulo;
 
   @override
   void initState() {
@@ -94,7 +96,57 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
             ),
           ),
           if (showDropdownModules)
-            Column(children: [
+            Column(
+              children: [
+                Row(
+                  children: [
+                    Radio(
+                      value: 1,
+                      groupValue: _casillaSeleccionadaModulo,
+                      onChanged: (value) {
+                        setState(() {
+                          _casillaSeleccionadaModulo = value;
+                          modulo = "Modulo_1";
+                        });
+                      },
+                    ),
+                    const Text('Módulo 1'),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Radio(
+                      value: 2,
+                      groupValue: _casillaSeleccionadaModulo,
+                      onChanged: (value) {
+                        setState(() {
+                          _casillaSeleccionadaModulo = value;
+                          modulo = "Modulo_2";
+                        });
+                      },
+                    ),
+                    const Text('Módulo 2'),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Radio(
+                      value: 3,
+                      groupValue: _casillaSeleccionadaModulo,
+                      onChanged: (value) {
+                        setState(() {
+                          _casillaSeleccionadaModulo = value;
+                          modulo = "Modulo_3";
+                        });
+                      },
+                    ),
+                    const Text('Módulo 3'),
+                  ],
+                ),
+              ],
+            ),
+
+          /* Column(children: [
               Row(
                 children: [
                   Checkbox(
@@ -149,7 +201,7 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
                   const Text('Módulo 3'),
                 ],
               ),
-            ]),
+            ]), */
           const SizedBox(height: 20),
           InkWell(
             onTap: () {
@@ -170,32 +222,32 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
           ),
           if (showDropdownStudents)
             Column(
-                children: alumnos
-                    .map((alumno) => Row(
-                          children: [
-                            Checkbox(
-                              value: correoAlumnosSeleccionados
-                                  .firstWhere(
-                                      (correo) =>
-                                          (alumno.correo ?? '') == correo,
-                                      orElse: () => '')
-                                  .isNotEmpty,
-                              onChanged: (newValue) {
-                                setState(() {
-                                  if (newValue != null && newValue) {
-                                    correoAlumnosSeleccionados
-                                        .add(alumno.correo ?? '');
-                                  } else {
-                                    correoAlumnosSeleccionados
-                                        .remove(alumno.correo ?? '');
-                                  }
-                                });
-                              },
-                            ),
-                            Text(alumno.nombre ?? '')
-                          ],
-                        ))
-                    .toList()),
+              children: alumnos.map((alumno) {
+                return Row(
+                  children: [
+                    Checkbox(
+                      value: correoAlumnosSeleccionados.contains(alumno.correo),
+                      onChanged: (newValue) {
+                        setState(() {
+                          if (newValue != null && newValue!) {
+                            if (correoAlumnosSeleccionados.length < 2) {
+                              correoAlumnosSeleccionados
+                                  .add(alumno.correo ?? '');
+                            } else { // Si ya hay dos casillas seleccionadas, desactivar la nueva selección
+                              newValue = false;
+                            }
+                          } else {
+                            correoAlumnosSeleccionados
+                                .remove(alumno.correo ?? '');
+                          }
+                        });
+                      },
+                    ),
+                    Text(alumno.nombre ?? ''),
+                  ],
+                );
+              }).toList(),
+            ),
           const SizedBox(height: 20),
           InkWell(
             onTap: () {
@@ -216,32 +268,36 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
           ),
           if (showDropdownTeachers)
             Column(
-                children: docentes
-                    .map((docente) => Row(
-                          children: [
-                            Checkbox(
-                              value: correoDocentesSeleccionados
-                                  .firstWhere(
-                                      (correo) =>
-                                          (docente.correo ?? '') == correo,
-                                      orElse: () => '')
-                                  .isNotEmpty,
-                              onChanged: (newValue) {
-                                setState(() {
-                                  if (newValue != null && newValue) {
-                                    correoDocentesSeleccionados
-                                        .add(docente.correo ?? '');
-                                  } else {
-                                    correoDocentesSeleccionados
-                                        .remove(docente.correo ?? '');
-                                  }
-                                });
-                              },
-                            ),
-                            Text(docente.nombre ?? '')
-                          ],
-                        ))
-                    .toList()),
+              children: docentes.map((docente) {
+                return Row(
+                  children: [
+                    Checkbox(
+                      value:
+                          correoDocentesSeleccionados.contains(docente.correo),
+                      onChanged: (newValue) {
+                        setState(() {
+                          if (newValue != null && newValue) {
+                            // Desmarcar la última casilla seleccionada
+                            if (ultimaCasillaSeleccionadaDocentes != null) {
+                              correoDocentesSeleccionados.remove(
+                                  ultimaCasillaSeleccionadaDocentes.correo);
+                            }
+                            ultimaCasillaSeleccionadaDocentes = docente;
+                            correoDocentesSeleccionados
+                                .add(docente.correo ?? '');
+                          } else {
+                            ultimaCasillaSeleccionadaDocentes = null;
+                            correoDocentesSeleccionados
+                                .remove(docente.correo ?? '');
+                          }
+                        });
+                      },
+                    ),
+                    Text(docente.nombre ?? ''),
+                  ],
+                );
+              }).toList(),
+            ),
           const SizedBox(height: 40),
           SizedBox(
             height: 50,
