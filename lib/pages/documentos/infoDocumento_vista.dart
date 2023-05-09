@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:movil_modular3/controladores/calificar_controlador.dart';
 import 'package:movil_modular3/controladores/documento_controlador.dart';
+import 'package:movil_modular3/controladores/observacion_controlador.dart';
 import 'package:movil_modular3/modelos/documento.dart';
+import 'package:movil_modular3/modelos/observacion.dart';
 import 'package:movil_modular3/modelos/sesion.dart';
+import 'package:movil_modular3/pages/documentos/modificarDocumento.dart';
+import 'package:movil_modular3/pages/home.dart';
 import 'package:movil_modular3/pages/proyecto/infoProyecto_vista.dart';
+import 'package:movil_modular3/widgets/observacion_card.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class InfoDocumentPage extends StatefulWidget {
@@ -19,10 +24,11 @@ class InfoDocumentPage extends StatefulWidget {
 }
 
 class _InfoDocumentPageState extends State<InfoDocumentPage> {
-  final controller = DocumentController();
+  final documentController = DocumentController();
+  final evaluationController = EvaluationController();
+  final observationController = ObservationController();
   Document? document;
   bool estaCargando = true;
-  final evaluationController = EvaluationController();
   final textObservacionesController = TextEditingController();
   bool _checkboxStatus1 = false;
   bool _checkboxStatus2 = false;
@@ -33,15 +39,22 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
   bool showDropdownEvaluation = false;
   String estado = "";
   String evaluacion = "";
+  List<Observation> observaciones = [];
 
   @override
   void initState() {
     // TODO: implement initState
-    controller.obtenerDocumentoPorId(widget.documentoId).then((value) {
+    documentController.obtenerDocumentoPorId(widget.documentoId).then((value) {
       setState(() {
         document = value;
         estaCargando = false;
       });
+    });
+
+    observationController
+        .obtenerObservacionesPorDocumentoId(widget.documentoId)
+        .then((value) {
+      observaciones.addAll(value);
     });
   }
 
@@ -55,7 +68,13 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
         centerTitle: true,
         leading: IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        InfoProjectPage(id: widget.proyectoId),
+                  ),
+                  (route) => false);
             },
             icon: const Icon(
               Icons.close,
@@ -195,34 +214,22 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
                   ),
                   const SizedBox(height: 20),
                   if (Session().rol == "Alumno")
-                    Container(
-                      height: 100,
-                      width: MediaQuery.of(context).size.width *
-                          0.9, // obtiene el tamaño de la pantalla
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: ListView(children: [
-                          TextField(
-                            readOnly: true,
-                            maxLines: null,
-                            controller: TextEditingController(text: ""),
-                            decoration: const InputDecoration(
-                              label: Text("Observaciones",
-                                  style: TextStyle(fontSize: 19)),
-                              contentPadding: EdgeInsets.all(10),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text("Observaciones:",
+                            style:
+                                TextStyle(fontSize: 20, color: Colors.black)),
+                        const SizedBox(height: 10),
+                        if (observaciones.isNotEmpty)
+                          for (final observacion in observaciones)
+                            Column(children: [
+                              ObservationCard(
+                                observacion: observacion.observacion!,
                               ),
-                              border: OutlineInputBorder(),
-                            ),
-                            style: const TextStyle(color: Colors.black),
-                          ),
-                        ]),
-                      ),
+                              const SizedBox(height: 10)
+                            ]),
+                      ],
                     ),
                   if (Session().rol == "Docente")
                     Column(
@@ -521,6 +528,22 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
             ),
         ],
       ),
+      floatingActionButton: Session().rol == "Alumno"
+          ? FloatingActionButton(
+              backgroundColor: const Color.fromARGB(255, 51, 51, 51),
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EditDocumentPage(
+                          documentoId: widget.documentoId,
+                          proyectoId: widget.proyectoId),
+                    ),
+                    (route) => false);
+              },
+              child: const Icon(Icons.edit),
+            )
+          : null,
     );
   }
 }
