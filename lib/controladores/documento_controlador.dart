@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:movil_modular3/modelos/archivo2.dart';
 import 'package:movil_modular3/modelos/documento.dart';
+import 'package:movil_modular3/modelos/docEtapa3.dart';
 import 'package:movil_modular3/modelos/sesion.dart';
 import 'package:movil_modular3/utils/config.dart';
 
@@ -38,6 +39,24 @@ class DocumentController {
         body: jsonEncode({"url": url}));
     print(
         ">> [CrearEtapa3] El servidor respondió con un código: ${response.statusCode}");
+    if (response.statusCode != 200) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  Future<bool> actualizarEtapa3(String url, String etapaId) async {
+    final response = await http.post(
+        Uri.parse('${Config.ipServerApiUrl}/actualizarEtapa3'),
+        headers: {
+          'Content-Type': 'application/json',
+          "Cookie": Session().cookie
+        },
+        body: jsonEncode({"url": url, "id": etapaId}));   
+    print(
+        ">> [actualizarEtapa3] El servidor respondió con un código: ${response.statusCode}");
+
     if (response.statusCode != 200) {
       return false;
     } else {
