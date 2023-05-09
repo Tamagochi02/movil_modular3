@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movil_modular3/pages/documentos/crearDocumento_vista.dart';
+import 'package:movil_modular3/pages/documentos/modificarDocumento.dart';
 import 'package:movil_modular3/pages/proyecto/crearProyecto_vista.dart';
 import 'package:movil_modular3/pages/proyecto/infoProyecto_vista.dart';
 import 'package:movil_modular3/pages/login/login_vista.dart';
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      routes: { // Lista de rutas
+      routes: {
+        // Lista de rutas
         LoginPage.route: (context) => const LoginPage(),
         RegisterStudentPage.route: (context) => const RegisterStudentPage(),
         RegisterTeacherPage.route: (context) => const RegisterTeacherPage(),
@@ -28,6 +30,7 @@ class MyApp extends StatelessWidget {
         CreateProjectPage.route: (context) => const CreateProjectPage(),
         InfoProjectPage.route: (context) => const InfoProjectPage(),
         CreateDocumentPage.route: (context) => const CreateDocumentPage(),
+        EditDocumentPage.route: (context) => const EditDocumentPage()
       },
       initialRoute:
           LoginPage.route, // Ruta que se mostrará al inicio de la ejecución
