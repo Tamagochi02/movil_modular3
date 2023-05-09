@@ -6,7 +6,6 @@ import 'package:movil_modular3/modelos/documento.dart';
 import 'package:movil_modular3/modelos/observacion.dart';
 import 'package:movil_modular3/modelos/sesion.dart';
 import 'package:movil_modular3/pages/documentos/modificarDocumento.dart';
-import 'package:movil_modular3/pages/home.dart';
 import 'package:movil_modular3/pages/proyecto/infoProyecto_vista.dart';
 import 'package:movil_modular3/widgets/observacion_card.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -537,7 +536,11 @@ class _InfoDocumentPageState extends State<InfoDocumentPage> {
                     MaterialPageRoute(
                       builder: (context) => EditDocumentPage(
                           documentoId: widget.documentoId,
-                          proyectoId: widget.proyectoId),
+                          proyectoId: widget.proyectoId,
+                          documentoNombre: document!.nombre,
+                          documentoTitulo: document!.titulo,
+                          documentoEtapa: document!.etapa,
+                          etapa3Id: document!.docEtapa3.last.id),
                     ),
                     (route) => false);
               },

@@ -6,14 +6,23 @@ import 'package:movil_modular3/controladores/documento_controlador.dart';
 import 'package:movil_modular3/modelos/archivo2.dart';
 import 'package:movil_modular3/modelos/sesion.dart';
 import 'package:movil_modular3/pages/documentos/infoDocumento_vista.dart';
-import 'package:movil_modular3/pages/proyecto/infoProyecto_vista.dart';
 
 class EditDocumentPage extends StatefulWidget {
   static const String route = "/editdocument";
   final String proyectoId;
   final String documentoId;
+  final String documentoNombre;
+  final String documentoTitulo;
+  final String documentoEtapa;
+  final String etapa3Id;
   const EditDocumentPage(
-      {Key? key, this.proyectoId = "", this.documentoId = ""})
+      {Key? key,
+      this.proyectoId = "",
+      this.documentoId = "",
+      this.documentoNombre = "",
+      this.documentoEtapa = "",
+      this.documentoTitulo = "",
+      this.etapa3Id = ""})
       : super(key: key);
 
   @override
@@ -21,10 +30,7 @@ class EditDocumentPage extends StatefulWidget {
 }
 
 class _EditDocumentPageState extends State<EditDocumentPage> {
-  final textNombreController = TextEditingController();
-  final textTituloController = TextEditingController();
   final controller = DocumentController();
-  String etapa = "etapa_3";
   String nombreArchivo = "";
   String url = "";
   File? archivoSeleccionado;
@@ -57,8 +63,6 @@ class _EditDocumentPageState extends State<EditDocumentPage> {
         centerTitle: true,
         leading: IconButton(
             onPressed: () {
-              print(widget.proyectoId);
-              print(widget.documentoId);
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
@@ -79,7 +83,7 @@ class _EditDocumentPageState extends State<EditDocumentPage> {
         child: ListView(children: [
           TextField(
             textCapitalization: TextCapitalization.sentences,
-            controller: textNombreController,
+            controller: TextEditingController(text: widget.documentoNombre),
             decoration: const InputDecoration(
               label:
                   Text("Nombre del documento", style: TextStyle(fontSize: 19)),
@@ -94,7 +98,7 @@ class _EditDocumentPageState extends State<EditDocumentPage> {
           const SizedBox(height: 20),
           TextField(
             textCapitalization: TextCapitalization.sentences,
-            controller: textTituloController,
+            controller: TextEditingController(text: widget.documentoTitulo),
             decoration: const InputDecoration(
               label:
                   Text("Título del documento", style: TextStyle(fontSize: 19)),
@@ -110,7 +114,7 @@ class _EditDocumentPageState extends State<EditDocumentPage> {
           TextField(
             readOnly: true,
             textCapitalization: TextCapitalization.sentences,
-            controller: TextEditingController(text: "Etapa 3"),
+            controller: TextEditingController(text: widget.documentoEtapa),
             decoration: const InputDecoration(
               label: Text("Etapa", style: TextStyle(fontSize: 19)),
               contentPadding: EdgeInsets.symmetric(horizontal: 10),
@@ -218,56 +222,47 @@ class _EditDocumentPageState extends State<EditDocumentPage> {
             child: ElevatedButton(
               onPressed: () async {
                 const snackBar_camposVacios = SnackBar(
-                  content: Text('Debes llenar todos los campos'),
+                  content: Text('Debes Subir un archivo'),
                   backgroundColor: Colors.red,
                   duration: Duration(seconds: 1),
                 );
-                const snackBar_registroExitoso = SnackBar(
-                  content: Text('Se ha creado con éxito'),
+                const snackBar_actualizacionExitosa = SnackBar(
+                  content: Text('Se ha modificado con éxito'),
                   backgroundColor: Colors.green,
                   duration: Duration(seconds: 1),
                 );
-                const snackBar_registroFallido = SnackBar(
-                  content: Text('Algo salió mal, no ha sido creado'),
+                const snackBar_actualizacionFallida = SnackBar(
+                  content: Text('Algo salió mal, no ha sido modificado'),
                   backgroundColor: Colors.red,
                   duration: Duration(seconds: 1),
                 );
 
-                if (textNombreController.text.isEmpty ||
-                    textTituloController.text.isEmpty ||
-                    archivoSeleccionado == null ||
-                    nombreArchivo.isEmpty) {
+                if (archivoSeleccionado == null || nombreArchivo.isEmpty) {
                   ScaffoldMessenger.of(context)
                       .showSnackBar(snackBar_camposVacios);
                 } else {
                   archivo = await controller.subirArchivo(
                       "pdf", archivoBase64, "", "Etapa3-${Session().userId}");
+                  print(archivo!.media);
+                  print(widget.etapa3Id);
                   controller
-                      .crearDocumento(
-                          textNombreController.text.trim(),
-                          textTituloController.text.trim(),
-                          etapa,
-                          widget.proyectoId)
-                      .then((documentoId) {
-                    controller
-                        .crearEtapa3(archivo!.media, documentoId)
-                        .then((value) {
-                      if (!value) {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(snackBar_registroFallido);
-                      } else {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(snackBar_registroExitoso);
-                        Navigator.pushAndRemoveUntil(
+                      .actualizarEtapa3(archivo!.media, widget.etapa3Id)
+                      .then((value) {
+                    if (value) {
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(snackBar_actualizacionExitosa);
+                      Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                InfoProjectPage(id: widget.proyectoId),
+                            builder: (context) => InfoDocumentPage(
+                                proyectoId: widget.proyectoId,
+                                documentoId: widget.documentoId),
                           ),
-                          (route) => false,
-                        );
-                      }
-                    });
+                          (route) => false);
+                    } else {
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(snackBar_actualizacionFallida);
+                    }
                   });
                 }
               },
